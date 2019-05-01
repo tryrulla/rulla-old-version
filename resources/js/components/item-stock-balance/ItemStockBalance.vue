@@ -1,0 +1,83 @@
+<template>
+    <div>
+        <table class="table">
+            <tr class="header">
+                <th colspan="3">
+                    Stock balance
+                </th>
+
+                <td class="text-right text-xs">
+                    <add-button
+                        :location-url="suggestionUrl"
+                        :save-url="saveUrl"
+                        :update="update"
+                    ></add-button>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="w-2/6">Location</th>
+                <th class="w-1/6">Balance</th>
+                <th class="w-2/6">Last updated</th>
+                <th></th>
+            </tr>
+
+            <tr v-for="row in data">
+                <td>
+                    <a :href="row.location.viewUrl">
+                        {{ row.location.name }}
+                    </a>
+                </td>
+
+                <td>
+                    {{ row.amount }}
+                </td>
+
+                <td>
+                    {{ formatDate(row.created_at) }}
+                </td>
+
+                <td class="text-right text-small">
+                    <edit-button
+                        :location="row.location"
+                        :old-amount="row.amount"
+                        :save-url="saveUrl"
+                        :update="update"
+                    ></edit-button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</template>
+
+<script>
+    import moment from 'moment-timezone';
+    import {upsert} from "../../utilities";
+
+    import AddButton from './AddButton';
+    import EditButton from './EditButton';
+
+    export default {
+        props: ['initialData', 'saveUrl', 'suggestionUrl'],
+        components: {
+            AddButton,
+            EditButton,
+        },
+        methods: {
+            formatDate(date) {
+                return moment.tz(date, 'UTC')
+                    .tz(moment.tz.guess())
+                    .format('Y-MM-DD kk:mm');
+            },
+            update(locationId, data) {
+                this.data = upsert(this.data, 'location_id', locationId, data);
+                this.$forceUpdate();
+            }
+        },
+        data() {
+            return {
+                data: this.initialData,
+            };
+        },
+    }
+</script>

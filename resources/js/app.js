@@ -5,7 +5,7 @@ import PortalVue from 'portal-vue';
 import VTooltip from 'v-tooltip';
 import vSelect from 'vue-select';
 
-import ItemStockBalance from './components/ItemStockBalance.vue';
+import ItemStockBalance from './components/item-stock-balance/ItemStockBalance.vue';
 import ItemInstanceList from './components/ItemInstanceList.vue';
 import ItemTypeList from './components/ItemTypeList.vue';
 import LocationList from './components/LocationList.vue';
