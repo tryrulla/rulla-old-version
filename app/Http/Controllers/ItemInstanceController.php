@@ -22,7 +22,7 @@ class ItemInstanceController extends Controller
     public function jsonIndex()
     {
         return ItemInstance::with('type')
-            ->paginate();
+            ->paginate(25);
     }
 
     /**

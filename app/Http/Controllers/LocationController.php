@@ -20,7 +20,7 @@ class LocationController extends Controller
 
     public function jsonIndex()
     {
-        return Location::paginate();
+        return Location::paginate(25);
     }
 
     /**

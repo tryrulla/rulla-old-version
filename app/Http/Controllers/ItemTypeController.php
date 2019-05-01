@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Items\ItemInstance;
 use App\Models\Items\ItemStockBalance;
+use App\Models\Items\ItemStockType;
 use App\Models\Items\ItemType;
 use App\Models\Location;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class ItemTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -24,35 +27,53 @@ class ItemTypeController extends Controller
 
     public function jsonIndex()
     {
-        return ItemType::paginate();
+        return ItemType::paginate(25);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
-        //
+        return view('types.new');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'manufacturer' => 'required|min:2',
+            'model' => 'required|min:2',
+            'stock_type' => ['required', Rule::in(ItemStockType::getValues())],
+        ]);
+
+        $type = ItemType::create($data);
+
+        if ($request->get('submit', 'normal') === 'another') {
+            session()->flash('status-color', 'green');
+            session()->flash('status', "Item type $type->identifier was created.");
+
+            $request->flashOnly('stock_type');
+
+            return redirect()
+                ->route('types.create');
+        }
+
+        return redirect()->route('types.view',  $type);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Items\ItemType  $type
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(ItemType $type)
     {
@@ -94,7 +115,7 @@ class ItemTypeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Items\ItemType  $type
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(ItemType $type)
     {
@@ -104,9 +125,9 @@ class ItemTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \App\Models\Items\ItemType  $type
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, ItemType $type)
     {
@@ -117,7 +138,7 @@ class ItemTypeController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Items\ItemType  $type
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(ItemType $type)
     {

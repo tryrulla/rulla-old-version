@@ -1,0 +1,27 @@
+.navbar-grid {
+    @apply mt-2 ml-1;
+    display: grid;
+
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 1rem;
+    grid-row-gap: 0.5rem;
+
+    a {
+        @apply no-underline py-2;
+        display: contents;
+
+        &.router-link-active span {
+            @apply font-bold;
+        }
+    }
+
+    i {
+        @apply mr-3 text-white text-center;
+        grid-column: 1;
+    }
+
+    span {
+        @apply text-gray-300;
+        grid-column: 2;
+    }
+}

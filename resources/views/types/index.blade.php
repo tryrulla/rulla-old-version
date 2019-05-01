@@ -3,5 +3,8 @@
 @section('title', 'All item types')
 
 @section('content')
-    <item-type-list url="{{ $url }}"></item-type-list>
+    <item-type-list
+        url="{{ $url }}"
+        new-url="{{ route('types.create') }}"
+    ></item-type-list>
 @endsection

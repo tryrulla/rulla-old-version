@@ -30,7 +30,7 @@
         {{ config('app.name') }}
     </title>
 </head>
-<body class="h-screen font-sans bg-gray-200 text-gray-900">
+<body class="h-full font-sans bg-gray-200 text-gray-900">
 @yield('body')
 
 @auth

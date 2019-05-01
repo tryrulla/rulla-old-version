@@ -1,4 +1,4 @@
-<div class="flex-none w-full md:h-full md:max-w-xs bg-gray-800 text-white">
+<div class="flex-none w-full md:max-w-xs bg-gray-800 text-white">
     <div class="px-4 h-16 bg-black text-xl font-mono flex items-center">
         <a href="{{ route('home') }}">
             Rulla
@@ -6,10 +6,21 @@
     </div>
 
     <div class="p-4">
-        <ul>
-            <li><a href="{{ route('types.index') }}">Types</a></li>
-            <li><a href="{{ route('instances.index') }}">Instances</a></li>
-            <li><a href="{{ route('locations.index') }}">Locations</a></li>
-        </ul>
+        <div class="navbar-grid">
+            <a href="{{ route('types.index') }}">
+                <i class="fas fa-boxes"></i>
+                <span>Types</span>
+            </a>
+
+            <a href="{{ route('instances.index') }}">
+                <i class="fas fa-box-open"></i>
+                <span>Instances</span>
+            </a>
+
+            <a href="{{ route('locations.index') }}">
+                <i class="fas fa-warehouse"></i>
+                <span>Locations</span>
+            </a>
+        </div>
     </div>
 </div>

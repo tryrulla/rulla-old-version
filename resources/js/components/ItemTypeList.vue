@@ -4,6 +4,12 @@
             <h1>
                 All types
             </h1>
+
+            <div class="text-xs">
+                <a :href="newUrl" class="text-blue-800 underline">
+                    new
+                </a>
+            </div>
         </div>
 
         <div v-if="data">
@@ -114,6 +120,6 @@
                 });
             }
         },
-        props: ['url']
+        props: ['url', 'newUrl']
     }
 </script>

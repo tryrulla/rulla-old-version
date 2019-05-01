@@ -18,6 +18,11 @@ Route::get('/', function () {
 Route::get('types', 'ItemTypeController@index')
     ->name('types.index');
 
+Route::get('types/new', 'ItemTypeController@create')
+    ->name('types.create');
+
+Route::post('types/new', 'ItemTypeController@store');
+
 Route::get('types/{type}', 'ItemTypeController@show')
     ->name('types.view');
 
