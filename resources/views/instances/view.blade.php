@@ -41,7 +41,13 @@
                         </tr>
 
                         <tr>
-                            <th>Label</th>
+                            <th>
+                                Label
+                                <i class="fas fa-info-circle text-gray-600 text-xs"
+                                   v-tooltip="'Short name/description. Will be printed on any tags.'"
+                                ></i>
+                            </th>
+
                             @if(strlen($instance->label) > 0)
                                 <td>{{ $instance->label }}</td>
                             @else

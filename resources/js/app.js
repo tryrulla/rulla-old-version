@@ -1,20 +1,26 @@
 import './bootstrap';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import PortalVue from 'portal-vue';
 import VTooltip from 'v-tooltip';
 import vSelect from 'vue-select';
 
+import ItemStockBalance from './components/ItemStockBalance.vue';
 import ItemInstanceList from './components/ItemInstanceList.vue';
 import ItemTypeList from './components/ItemTypeList.vue';
 import LocationList from './components/LocationList.vue';
+import Modal from './components/Modal.vue';
 
 Vue.component('v-select', vSelect);
 Vue.use(VueRouter);
+Vue.use(PortalVue);
 Vue.use(VTooltip);
 
+Vue.component('item-stock-balance', ItemStockBalance);
 Vue.component('item-instance-list', ItemInstanceList);
 Vue.component('item-type-list', ItemTypeList);
 Vue.component('location-list', LocationList);
+Vue.component('modal', Modal);
 
 /**
  * The following block of code may be used to automatically register your

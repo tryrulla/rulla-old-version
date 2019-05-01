@@ -3,9 +3,9 @@
 @section('title', $type->identifier)
 
 @section('content')
-    <div class="bg-white shadow rounded-lg">
-        <div class="bg-gray-400 p-4 rounded-t flex justify-between">
-            <h1 class="text-xl text-black font-bold">
+    <div class="card">
+        <div class="card-header">
+            <h1>
                 {{ $type->identifier }}: {{ $type->manufacturer }} {{ $type->model }}
             </h1>
 
@@ -63,6 +63,9 @@
                         <tr>
                             <th>
                                 Stock type
+                                <i class="fas fa-info-circle text-gray-600 text-xs"
+                                   v-tooltip="'Specifies how this item is stored.<br/><br/>&ndash; Stock: amount of items per location<br/>&ndash; Instance: every single item is stored'"
+                                ></i>
                             </th>
 
                             <td>
@@ -74,37 +77,11 @@
 
                 <div class="md:w-1/2">
                     @if($type->stock_type->isStock())
-                        <table class="table">
-                            <tr class="header">
-                                <th colspan="3">
-                                    Stock balance
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <th class="w-1/3">Location</th>
-                                <th class="w-1/3">Balance</th>
-                                <th class="w-1/3">Last updated</th>
-                            </tr>
-
-                            @foreach($type->stockBalances as $stock_balance)
-                                <tr>
-                                    <td>
-                                        <a href="{{ $stock_balance->location->viewUrl }}">
-                                            {{ $stock_balance->location->name }}
-                                        </a>
-                                    </td>
-
-                                    <td>
-                                        {{ $stock_balance->amount }}
-                                    </td>
-
-                                    <td>
-                                        {{ $stock_balance->created_at->format('Y-m-d H:i T') }}
-                                    </td>
-                                </tr>
-                            @endforeacH
-                        </table>
+                        <item-stock-balance
+                            :initial-data="{{ $type->stockBalances()->with('location')->get() }}"
+                            save-url="{{ route('api.types.updateStock', $type) }}"
+                            suggestion-url="{{ route('api.types.suggestLocations', $type) }}"
+                        ></item-stock-balance>
                     @endif
                 </div>
             </div>

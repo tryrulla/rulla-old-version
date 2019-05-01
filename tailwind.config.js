@@ -12,7 +12,10 @@ module.exports = {
                   'monospace',
               ],
           },
-      }
+          width: {
+              'screen-1/2': '50vw',
+          },
+      },
   },
   variants: {},
   plugins: []

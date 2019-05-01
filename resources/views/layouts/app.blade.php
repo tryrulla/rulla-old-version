@@ -19,5 +19,7 @@
                 @yield('content')
             </div>
         </div>
+
+        <portal-target name="modals"></portal-target>
     </div>
 @endsection
