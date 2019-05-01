@@ -34,7 +34,7 @@
                 </td>
 
                 <td>
-                    {{ formatDate(row.created_at) }}
+                    {{ formatDate(row.updated_at) }}
                 </td>
 
                 <td class="text-right text-small">

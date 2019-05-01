@@ -1,5 +1,7 @@
 import './bootstrap';
 import Vue from 'vue';
+
+import autofocus from 'vue-autofocus-directive';
 import VueRouter from 'vue-router';
 import PortalVue from 'portal-vue';
 import VTooltip from 'v-tooltip';
@@ -11,6 +13,13 @@ import ItemTypeList from './components/ItemTypeList.vue';
 import LocationList from './components/LocationList.vue';
 import Modal from './components/Modal.vue';
 
+Vue.directive('autofocus-select', {
+    inserted: function (el) {
+        el.__vue__.$refs.search.focus();
+    },
+});
+
+Vue.directive('autofocus', autofocus);
 Vue.component('v-select', vSelect);
 Vue.use(VueRouter);
 Vue.use(PortalVue);

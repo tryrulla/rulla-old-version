@@ -23,6 +23,7 @@
         "tailwindcss": "^1.0.0-beta.8",
         "v-tooltip": "^2.0.2",
         "vue": "^2.5.17",
+        "vue-autofocus-directive": "^1.0.1",
         "vue-router": "^3.0.6",
         "vue-select": "^3.0.2",
         "vue-template-compiler": "^2.6.10"

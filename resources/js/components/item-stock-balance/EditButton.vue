@@ -34,7 +34,7 @@
 
                         <div class="w-2/3">
                             <input v-model="selectedAmount" type="number" id="amount"
-                                   @keyup.enter="submit"
+                                   v-autofocus @keyup.enter="submit"
                                    class="input-text">
 
                             <div v-if="amountError" class="text-xs text-red-700">{{ amountError }}</div>

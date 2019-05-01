@@ -25,10 +25,12 @@
                         </div>
 
                         <div class="w-2/3">
-                            <v-select v-model="selectedLocation"
+                            <v-select v-model="selectedLocation" v-autofocus-select
                                       :getOptionLabel="location => `[${location.identifier}] ${location.name}`"
                                       :reduce="location => location.id"
                                       :options="suggestions"></v-select>
+
+                            <div v-if="locationError" class="text-xs text-red-700">{{ locationError }}</div>
                         </div>
                     </div>
 
@@ -69,6 +71,7 @@
         loading: false,
         suggestions: null,
         error: null,
+        locationError: null,
         amountError: null,
 
         selectedLocation: null,
@@ -83,6 +86,11 @@
         },
         methods: {
             submit() {
+                if (!this.selectedLocation) {
+                    this.locationError = 'You must select a location.';
+                    return;
+                }
+
                 if (this.selectedAmount <= 0) {
                     this.amountError = 'Amount must be at least one.';
                     return;
@@ -122,8 +130,11 @@
                         });
                 }
             },
-            amount() {
+            selectedAmount() {
                 this.amountError = null;
+            },
+            selectedLocation() {
+                this.locationError = null;
             }
         },
     };
