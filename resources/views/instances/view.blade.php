@@ -8,12 +8,6 @@
             <h1>
                 {{ $instance->identifier }}: {{ $instance->label }}
             </h1>
-
-            <div class="text-xs">
-                <a href="{{ route('instances.edit', $instance) }}" class="text-blue-800 underline">
-                    edit
-                </a>
-            </div>
         </div>
 
         <div class="p-4">
@@ -48,11 +42,14 @@
                                 ></i>
                             </th>
 
-                            @if(strlen($instance->label) > 0)
-                                <td>{{ $instance->label }}</td>
-                            @else
-                                <td>&ndash;</td>
-                            @endif
+                            <td>
+                                <editable-text-field
+                                    url="{{ route('api.instances.update', $instance) }}"
+                                    id="label"
+                                    :initial-value="{{ json_encode($instance->label) }}"
+                                    :refresh="true"
+                                ></editable-text-field>
+                            </td>
                         </tr>
 
                         <tr>

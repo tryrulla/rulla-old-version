@@ -8,12 +8,6 @@
             <h1>
                 {{ $type->identifier }}: {{ $type->manufacturer }} {{ $type->model }}
             </h1>
-
-            <div class="text-xs">
-                <a href="{{ route('instances.edit', $type) }}" class="text-blue-800 underline">
-                    edit
-                </a>
-            </div>
         </div>
 
         <div class="p-4">
@@ -46,7 +40,12 @@
                             </th>
 
                             <td>
-                                {{ $type->manufacturer }}
+                                <editable-text-field
+                                    url="{{ route('api.types.update', $type) }}"
+                                    id="manufacturer"
+                                    :initial-value="{{ json_encode($type->manufacturer) }}"
+                                    :refresh="true"
+                                ></editable-text-field>
                             </td>
                         </tr>
 
@@ -56,7 +55,12 @@
                             </th>
 
                             <td>
-                                {{ $type->model }}
+                                <editable-text-field
+                                    url="{{ route('api.types.update', $type) }}"
+                                    id="model"
+                                    :initial-value="{{ json_encode($type->model) }}"
+                                    :refresh="true"
+                                ></editable-text-field>
                             </td>
                         </tr>
 
@@ -69,7 +73,13 @@
                             </th>
 
                             <td>
-                                {{ ucfirst($type->stock_type) }}
+                                <editable-select
+                                    url="{{ route('api.types.update', $type) }}"
+                                    id="stock_type"
+                                    name="Stock type"
+                                    initial-value="{{ $type->stock_type }}"
+                                    :options="[{label: 'Instance', value: 'instance'}, {label: 'Stock', value: 'stock'}]"
+                                ></editable-select>
                             </td>
                         </tr>
                     </table>

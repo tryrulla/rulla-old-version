@@ -21,6 +21,9 @@ Route::prefix('v1')->group(function () {
     Route::get('types', 'ItemTypeController@jsonIndex')
         ->name('api.types.index');
 
+    Route::put('types/{type}', 'ItemTypeController@update')
+        ->name('api.types.update');
+
     Route::get('types/{type}/suggest-location', 'ItemTypeController@suggestLocations')
         ->name('api.types.suggestLocations');
 
@@ -29,6 +32,9 @@ Route::prefix('v1')->group(function () {
 
     Route::get('instances', 'ItemInstanceController@jsonIndex')
         ->name('api.instances.index');
+
+    Route::put('instances/{instance}', 'ItemInstanceController@update')
+        ->name('api.instances.update');
 
     Route::get('locations', 'LocationController@jsonIndex')
         ->name('api.locations.index');

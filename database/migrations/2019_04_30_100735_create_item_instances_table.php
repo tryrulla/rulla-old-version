@@ -15,7 +15,7 @@ class CreateItemInstancesTable extends Migration
     {
         Schema::create('item_instances', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('label');
+            $table->string('label')->nullable();
 
             $table->bigInteger('type_id')->nullable();
             $table->foreign('type_id')

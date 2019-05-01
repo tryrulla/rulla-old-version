@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Items\ItemInstance;
+use App\Models\Items\ItemStockType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class ItemInstanceController extends Controller
 {
@@ -58,17 +60,6 @@ class ItemInstanceController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Items\ItemInstance  $instance
-     * @return Response
-     */
-    public function edit(ItemInstance $instance)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -77,7 +68,11 @@ class ItemInstanceController extends Controller
      */
     public function update(Request $request, ItemInstance $instance)
     {
-        //
+        $instance->update($request->validate([
+            'label' => 'nullable',
+        ]));
+
+        return response($instance);
     }
 
     /**

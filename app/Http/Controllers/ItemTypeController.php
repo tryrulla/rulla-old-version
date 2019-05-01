@@ -72,7 +72,7 @@ class ItemTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Items\ItemType  $type
+     * @param ItemType $type
      * @return Response
      */
     public function show(ItemType $type)
@@ -112,32 +112,27 @@ class ItemTypeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Items\ItemType  $type
-     * @return Response
-     */
-    public function edit(ItemType $type)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  \App\Models\Items\ItemType  $type
+     * @param ItemType $type
      * @return Response
      */
     public function update(Request $request, ItemType $type)
     {
-        //
+        $type->update($request->validate([
+            'manufacturer' => 'nullable|min:2',
+            'model' => 'nullable|min:2',
+            'stock_type' => ['nullable', Rule::in(ItemStockType::getValues())],
+        ]));
+
+        return response($type);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Items\ItemType  $type
+     * @param ItemType $type
      * @return Response
      */
     public function destroy(ItemType $type)

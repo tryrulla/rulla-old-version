@@ -26,17 +26,11 @@ Route::post('types/new', 'ItemTypeController@store');
 Route::get('types/{type}', 'ItemTypeController@show')
     ->name('types.view');
 
-Route::get('types/{type}/edit', 'ItemTypeController@edit')
-    ->name('types.edit');
-
 Route::get('instances', 'ItemInstanceController@index')
     ->name('instances.index');
 
 Route::get('instances/{instance}', 'ItemInstanceController@show')
     ->name('instances.view');
-
-Route::get('instances/{instance}/edit', 'ItemInstanceController@edit')
-    ->name('instances.edit');
 
 Route::get('locations', 'LocationController@index')
     ->name('locations.index');
