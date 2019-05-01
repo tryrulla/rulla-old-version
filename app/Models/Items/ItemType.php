@@ -10,6 +10,7 @@ class ItemType extends Model
     use HasFormattedIdentifier;
 
     protected $guarded = [];
+    protected $relations = ['stockBalances'];
     protected $appends = ['identifier', 'viewUrl', 'name'];
 
     public function getViewUrlAttribute()
@@ -39,5 +40,11 @@ class ItemType extends Model
     public function instances()
     {
         return $this->hasMany(ItemInstance::class, 'type_id', 'id');
+    }
+
+    public function stockBalances()
+    {
+        return $this->hasMany(ItemStockBalance::class, 'type_id', 'id')
+            ->with('location');
     }
 }

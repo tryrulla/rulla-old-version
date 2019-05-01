@@ -72,7 +72,41 @@
                     </table>
                 </div>
 
-                <div class="md:w-1/2"></div>
+                <div class="md:w-1/2">
+                    @if($type->stock_type->isStock())
+                        <table class="table">
+                            <tr class="header">
+                                <th colspan="3">
+                                    Stock balance
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th class="w-1/3">Location</th>
+                                <th class="w-1/3">Balance</th>
+                                <th class="w-1/3">Last updated</th>
+                            </tr>
+
+                            @foreach($type->stockBalances as $stock_balance)
+                                <tr>
+                                    <td>
+                                        <a href="{{ $stock_balance->location->viewUrl }}">
+                                            {{ $stock_balance->location->name }}
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        {{ $stock_balance->amount }}
+                                    </td>
+
+                                    <td>
+                                        {{ $stock_balance->created_at->format('Y-m-d H:i T') }}
+                                    </td>
+                                </tr>
+                            @endforeacH
+                        </table>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

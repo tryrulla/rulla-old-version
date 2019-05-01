@@ -10,6 +10,7 @@ class ItemInstance extends Model
     use HasFormattedIdentifier;
 
     protected $guarded = [];
+    protected $relations = ['type'];
     protected $appends = ['identifier', 'viewUrl'];
 
     public function getViewUrlAttribute()

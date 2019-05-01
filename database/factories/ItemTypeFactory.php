@@ -19,7 +19,15 @@ function modelName(Faker $faker) {
         $name .= $faker->boolean ? $faker->randomLetter : $faker->randomDigit;
     }
 
-    return strtoupper($name);
+    $name = strtoupper($name);
+
+    if ($faker->boolean(33)) {
+        $name .= ' Pro';
+    } else if ($faker->boolean) {
+        $name .= ' Plus';
+    }
+
+    return $name;
 }
 
 $factory->define(ItemType::class, function (Faker $faker) {
