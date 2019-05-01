@@ -21,6 +21,9 @@ Route::get('types', 'ItemTypeController@index')
 Route::get('types/{type}', 'ItemTypeController@show')
     ->name('types.view');
 
+Route::get('types/{type}/edit', 'ItemTypeController@edit')
+    ->name('types.edit');
+
 Route::get('instances', 'ItemInstanceController@index')
     ->name('instances.index');
 
@@ -29,3 +32,9 @@ Route::get('instances/{instance}', 'ItemInstanceController@show')
 
 Route::get('instances/{instance}/edit', 'ItemInstanceController@edit')
     ->name('instances.edit');
+
+Route::get('locations', 'LocationController@index')
+    ->name('locations.index');
+
+Route::get('locations/{location}', 'LocationController@show')
+    ->name('locations.view');

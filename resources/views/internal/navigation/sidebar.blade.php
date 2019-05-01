@@ -9,6 +9,7 @@
         <ul>
             <li><a href="{{ route('types.index') }}">Types</a></li>
             <li><a href="{{ route('instances.index') }}">Instances</a></li>
+            <li><a href="{{ route('locations.index') }}">Locations</a></li>
         </ul>
     </div>
 </div>

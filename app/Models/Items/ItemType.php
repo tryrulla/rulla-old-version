@@ -24,6 +24,10 @@ class ItemType extends Model
 
     public function getStockTypeAttribute($value)
     {
+        if ($value instanceof ItemStockType) {
+            return $value;
+        }
+
         return ItemStockType::make($value);
     }
 

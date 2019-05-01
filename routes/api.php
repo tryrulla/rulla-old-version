@@ -23,4 +23,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('instances', 'ItemInstanceController@jsonIndex')
         ->name('api.instances.index');
+
+    Route::get('locations', 'LocationController@jsonIndex')
+        ->name('api.locations.index');
 });
