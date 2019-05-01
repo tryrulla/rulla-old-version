@@ -39,12 +39,21 @@
                         </a>
                     </td>
                     <td>
-                        {{ row.label }}
+                        <span v-if="row.label && row.label.length > 0">
+                            {{ row.label }}
+                        </span>
+                        <span v-else>
+                            &ndash;
+                        </span>
                     </td>
                     <td>
-                        <a :href="row.type.viewUrl">
+                        <a :href="row.type.viewUrl" v-if="row.type">
                             [{{ row.type.identifier }}] {{ row.type.name }}
                         </a>
+
+                        <span v-else>
+                            &ndash;
+                        </span>
                     </td>
                     <td class="text-right">
                         <a class="text-blue-800 underline hover:no-underline" :href="row.viewUrl">

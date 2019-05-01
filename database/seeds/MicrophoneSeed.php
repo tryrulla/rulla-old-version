@@ -7,19 +7,6 @@ use Illuminate\Database\Seeder;
 
 class MicrophoneSeed extends Seeder
 {
-    public function rolling($class, $property, $prefix, $amount)
-    {
-        $collection = collect();
-
-        for ($i = 1; $i <= $amount; $i++) {
-            $collection->push(factory($class)->make([
-                $property => $prefix . ((string) $i)
-            ]));
-        }
-
-        return $collection;
-    }
-
     /**
      * Run the database seeds.
      *
@@ -46,30 +33,30 @@ class MicrophoneSeed extends Seeder
             'manufacturer' => 'Shure',
             'model' => 'PG-41',
             'stock_type' => ItemStockType::instance(),
-        ])->instances()->saveMany($this->rolling(ItemInstance::class, 'label', 'Shure PG-41 #', 8));
+        ])->instances()->saveMany(factory(ItemInstance::class, 8)->make());
 
         factory(ItemType::class)->create([
             'manufacturer' => 'Shure',
             'model' => 'SM-57',
             'stock_type' => ItemStockType::instance(),
-        ])->instances()->saveMany($this->rolling(ItemInstance::class, 'label', 'Shure PG-57 #', 2));
+        ])->instances()->saveMany(factory(ItemInstance::class, 2)->make());
 
         factory(ItemType::class)->create([
             'manufacturer' => 'Shure',
             'model' => 'PG-81',
             'stock_type' => ItemStockType::instance(),
-        ])->instances()->saveMany($this->rolling(ItemInstance::class, 'label', 'Shure PG-81 #', 8));
+        ])->instances()->saveMany(factory(ItemInstance::class, 8)->make());
 
         factory(ItemType::class)->create([
             'manufacturer' => 'Shure',
             'model' => 'PG-81-LC',
             'stock_type' => ItemStockType::instance(),
-        ])->instances()->saveMany($this->rolling(ItemInstance::class, 'label', 'Shure PG-81-LC #', 6));
+        ])->instances()->saveMany(factory(ItemInstance::class, 6)->make());
 
         factory(ItemType::class)->create([
             'manufacturer' => 'AKG',
             'model' => 'C1000S',
             'stock_type' => ItemStockType::instance(),
-        ])->instances()->saveMany($this->rolling(ItemInstance::class, 'label', 'Gaudeamus Migitur #', 2));
+        ])->instances()->saveMany(factory(ItemInstance::class, 2)->make());
     }
 }

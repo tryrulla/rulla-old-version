@@ -42,15 +42,23 @@
 
                         <tr>
                             <th>Label</th>
-                            <td>{{ $instance->label }}</td>
+                            @if(strlen($instance->label) > 0)
+                                <td>{{ $instance->label }}</td>
+                            @else
+                                <td>&ndash;</td>
+                            @endif
                         </tr>
 
                         <tr>
                             <th>Type</th>
                             <td>
-                                <a href="{{ $instance->type->viewUrl }}">
-                                    [{{ $instance->type->identifier }}] {{ $instance->type->name }}
-                                </a>
+                                @if($instance->type)
+                                        <a href="{{ $instance->type->viewUrl }}">
+                                            [{{ $instance->type->identifier }}] {{ $instance->type->name }}
+                                        </a>
+                                @else
+                                    &ndash;
+                                @endif
                             </td>
                         </tr>
                     </table>
