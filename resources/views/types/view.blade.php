@@ -79,6 +79,7 @@
                                     name="Stock type"
                                     initial-value="{{ $type->stock_type }}"
                                     :options="[{label: 'Instance', value: 'instance'}, {label: 'Stock', value: 'stock'}]"
+                                    :refresh="true"
                                 ></editable-select>
                             </td>
                         </tr>

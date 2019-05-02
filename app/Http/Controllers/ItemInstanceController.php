@@ -21,8 +21,13 @@ class ItemInstanceController extends Controller
         return view('instances.index', compact('url'));
     }
 
-    public function jsonIndex()
+    public function jsonIndex(Request $request)
     {
+        if ($request->has('all')) {
+            return ItemInstance::with('type')
+                ->all();
+        }
+
         return ItemInstance::with('type')
             ->paginate(25);
     }
@@ -70,6 +75,7 @@ class ItemInstanceController extends Controller
     {
         $instance->update($request->validate([
             'label' => 'nullable',
+            'type_id' => 'nullable' // todo: type exists
         ]));
 
         return response($instance);

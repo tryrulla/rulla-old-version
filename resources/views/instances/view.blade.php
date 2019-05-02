@@ -55,13 +55,16 @@
                         <tr>
                             <th>Type</th>
                             <td>
-                                @if($instance->type)
-                                        <a href="{{ $instance->type->viewUrl }}">
-                                            [{{ $instance->type->identifier }}] {{ $instance->type->name }}
-                                        </a>
-                                @else
-                                    &ndash;
-                                @endif
+                                <editable-select
+                                    url="{{ route('api.instances.update', $instance) }}"
+                                    data-url="{{ route('api.types.index', ['all' => '1']) }}"
+                                    id="type_id"
+                                    name="Item type"
+                                    :label="type => type ? `[${type.identifier}] ${type.name}` : '–'"
+                                    :get-value="type => type ? type.id : null"
+                                    :initial-value="{{ $instance->type ? $instance->type->id : 'null' }}"
+                                    :refresh="true"
+                                ></editable-select>
                             </td>
                         </tr>
                     </table>

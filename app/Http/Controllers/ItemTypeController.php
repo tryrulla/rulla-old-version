@@ -25,8 +25,12 @@ class ItemTypeController extends Controller
         return view('types.index', compact('url'));
     }
 
-    public function jsonIndex()
+    public function jsonIndex(Request $request)
     {
+        if ($request->has('all')) {
+            return ItemType::all();
+        }
+
         return ItemType::paginate(25);
     }
 

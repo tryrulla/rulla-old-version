@@ -1,10 +1,14 @@
 <template>
-    <div>
-        <div class="group">
-            <span @dblclick="openEditor">{{ selected.label }}</span>
+    <div v-if="loaded">
+        <div class="group" v-if="selected">
+            <span @dblclick="openEditor">{{ label(selected) }}</span>
             <button class="text-gray-600 text-xs hidden group-hover:inline" @click="openEditor">
                 <i class="fas fa-pen"></i>
             </button>
+        </div>
+
+        <div v-else>
+            <button @click="openEditor" class="text-gray-600">(add)</button>
         </div>
 
         <modal :open="editing" @close="editing = false">
@@ -13,21 +17,20 @@
                     <h1>Change {{ name }}</h1>
                 </div>
 
-                <div class="p-4">
-                    <div class="md:flex">
-                        <div class="md:w-1/3"></div>
-
-                        <div class="md:w-1/3">
-                            <select v-model="value" class="input-select" id="new">
-                                <option v-for="option in options" :value="option.value" :selected="value === option.value">
-                                    {{ option.label }}
-                                </option>
-                            </select>
-                        </div>
+                <div class="p-4 flex">
+                    <div class="w-1/3">
+                        {{ name }}
+                    </div>
+                    <div class="w-2/3">
+                        <v-select v-model="value" :reduce="getValue" :options="allowedValues" :get-option-label="label"></v-select>
                     </div>
                 </div>
             </div>
         </modal>
+    </div>
+
+    <div v-else>
+        Loading...
     </div>
 </template>
 
@@ -38,8 +41,26 @@
             name: String,
 
             url: String,
-            initialValue: String,
-            options: Array,
+            dataUrl: String,
+            initialValue: {
+                default: null,
+            },
+
+            options: {
+                type: Array,
+                default: () => [],
+            },
+
+            getValue: {
+                type: Function,
+                default: item => item.value,
+            },
+
+            label: {
+                type: Function,
+                default: item => (item || {}).label || '–',
+            },
+
             refresh: {
                 type: Boolean,
                 default: false
@@ -48,18 +69,35 @@
         data() {
             return {
                 editing: false,
+                loaded: false,
+                allowedValues: this.options,
                 value: this.initialValue
             };
         },
         computed: {
             selected() {
-                return this.options.filter(it => it.value === this.value)[0];
+                const matches = this.allowedValues.filter(it => this.getValue(it) === this.value);
+                return matches.length === 1 ? matches[0] : null;
             },
         },
         methods: {
             openEditor() {
                 this.editing = true;
             },
+        },
+        mounted() {
+            if (this.dataUrl) {
+                axios.get(this.dataUrl)
+                    .then(({data}) => {
+                        this.allowedValues = data;
+                        this.loaded = true;
+                    }).catch(error => {
+                        console.error(error);
+                        alert(error);
+                    });
+            } else {
+                this.loaded = true;
+            }
         },
         watch: {
             value(value) {
