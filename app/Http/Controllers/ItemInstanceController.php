@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Items\ItemInstance;
-use App\Models\Items\ItemStockType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Validation\Rule;
 
 class ItemInstanceController extends Controller
 {
@@ -24,11 +22,11 @@ class ItemInstanceController extends Controller
     public function jsonIndex(Request $request)
     {
         if ($request->has('all')) {
-            return ItemInstance::with('type')
+            return ItemInstance::with('type', 'location')
                 ->all();
         }
 
-        return ItemInstance::with('type')
+        return ItemInstance::with('type', 'location')
             ->paginate(25);
     }
 
@@ -75,7 +73,8 @@ class ItemInstanceController extends Controller
     {
         $instance->update($request->validate([
             'label' => 'nullable',
-            'type_id' => 'nullable' // todo: type exists
+            'type_id' => 'nullable|exists:item_types,id',
+            'location_id' => 'nullable|exists:locations,id',
         ]));
 
         return response($instance);

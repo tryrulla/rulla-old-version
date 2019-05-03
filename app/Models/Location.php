@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Items\ItemInstance;
 use App\Models\Items\ItemStockBalance;
 use App\Models\Traits\HasFormattedIdentifier;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ class Location extends Model
     use HasFormattedIdentifier;
 
     protected $guarded = [];
-    protected $relations = ['stock'];
+    protected $relations = ['stock', 'instances'];
     protected $appends = ['identifier', 'viewUrl'];
 
     public function getViewUrlAttribute()
@@ -27,5 +28,10 @@ class Location extends Model
     public function stock()
     {
         return $this->hasMany(ItemStockBalance::class, 'location_id', 'id');
+    }
+
+    public function instances()
+    {
+        return $this->hasMany(ItemInstance::class, 'location_id', 'id');
     }
 }

@@ -22,11 +22,14 @@
                     <th class="w-1/6">
                         Identifier
                     </th>
-                    <th class="w-2/6">
+                    <th class="w-1/6">
                         Label
                     </th>
                     <th class="w-2/6">
                         Type
+                    </th>
+                    <th class="w-1/6">
+                        Location
                     </th>
                     <th class="w-1/6">
 
@@ -49,6 +52,15 @@
                     <td>
                         <a :href="row.type.viewUrl" v-if="row.type">
                             [{{ row.type.identifier }}] {{ row.type.name }}
+                        </a>
+
+                        <span v-else>
+                            &ndash;
+                        </span>
+                    </td>
+                    <td>
+                        <a :href="row.location.viewUrl" v-if="row.location">
+                            [{{ row.location.identifier }}] {{ row.location.name }}
                         </a>
 
                         <span v-else>

@@ -68,6 +68,22 @@
                                 ></editable-select>
                             </td>
                         </tr>
+
+                        <tr>
+                            <th>Location</th>
+                            <td>
+                                <editable-select
+                                    url="{{ route('api.instances.update', $instance) }}"
+                                    data-url="{{ route('api.locations.index', ['all' => '1']) }}"
+                                    id="location_id"
+                                    name="Location"
+                                    :label="location => location ? `[${location.identifier}] ${location.name}` : '–'"
+                                    :get-value="location => location ? location.id : null"
+                                    :initial-value="{{ $instance->location ? $instance->location->id : 'null' }}"
+                                    :refresh="true"
+                                ></editable-select>
+                            </td>
+                        </tr>
                     </table>
                 </div>
 
