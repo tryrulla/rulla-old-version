@@ -35,5 +35,10 @@ Route::get('instances/{instance}', 'ItemInstanceController@show')
 Route::get('locations', 'LocationController@index')
     ->name('locations.index');
 
+Route::get('locations/new', 'LocationController@create')
+    ->name('locations.create');
+
+Route::post('locations/new', 'LocationController@store');
+
 Route::get('locations/{location}', 'LocationController@show')
     ->name('locations.view');

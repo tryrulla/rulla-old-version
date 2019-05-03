@@ -3,5 +3,8 @@
 @section('title', 'All locations')
 
 @section('content')
-    <location-list url="{{ $url }}"></location-list>
+    <location-list
+        url="{{ $url }}"
+        new-url="{{ route('locations.create') }}"
+    ></location-list>
 @endsection

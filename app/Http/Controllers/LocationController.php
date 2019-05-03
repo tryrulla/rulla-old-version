@@ -37,7 +37,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('locations.new');
     }
 
     /**
@@ -48,7 +48,21 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|min:2',
+        ]);
+
+        $location = Location::create($data);
+
+        if ($request->get('submit', 'normal') === 'another') {
+            session()->flash('status-color', 'green');
+            session()->flash('status', "Location $location->identifier was created.");
+
+            return redirect()
+                ->route('locations.create');
+        }
+
+        return redirect()->route('locations.view', $location);
     }
 
     /**
