@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Items\ItemInstance;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\QueryBuilder\Filter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ItemInstanceController extends Controller
 {
@@ -21,13 +23,13 @@ class ItemInstanceController extends Controller
 
     public function jsonIndex(Request $request)
     {
-        if ($request->has('all')) {
-            return ItemInstance::with('type', 'location')
-                ->all();
-        }
+        $query = QueryBuilder::for(ItemInstance::class)
+            ->allowedFilters(Filter::exact('id'), 'label', Filter::exact('location_id'), Filter::exact('type_id'))
+            ->with('type', 'location');
 
-        return ItemInstance::with('type', 'location')
-            ->paginate(25);
+        return $request->has('all')
+            ? $query->get()
+            : $query->paginate(25);
     }
 
     /**

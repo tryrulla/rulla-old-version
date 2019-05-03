@@ -50,6 +50,10 @@
                             </td>
                         </tr>
                     </table>
+
+                    <location-instance-list
+                        url="{{ route('api.instances.index', ['all' => '1', 'filter' => ['location_id' => $location->id]]) }}"
+                    ></location-instance-list>
                 </div>
 
                 <div class="md:w-1/2"></div>

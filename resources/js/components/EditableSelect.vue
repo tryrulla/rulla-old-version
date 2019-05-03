@@ -1,7 +1,9 @@
 <template>
     <div v-if="loaded">
         <div class="group" v-if="selected">
-            <span @dblclick="openEditor">{{ label(selected) }}</span>
+            <a :href="link" v-if="link" @dblclick="openEditor">{{ label(selected) }}</a>
+            <span @dblclick="openEditor" v-else>{{ label(selected) }}</span>
+
             <button class="text-gray-600 text-xs hidden group-hover:inline" @click="openEditor">
                 <i class="fas fa-pen"></i>
             </button>
@@ -61,6 +63,11 @@
                 default: item => (item || {}).label || '–',
             },
 
+            getLink: {
+                type: Function,
+                default: item => (item && item.viewUrl) ? item.viewUrl : null,
+            },
+
             refresh: {
                 type: Boolean,
                 default: false
@@ -79,6 +86,9 @@
                 const matches = this.allowedValues.filter(it => this.getValue(it) === this.value);
                 return matches.length === 1 ? matches[0] : null;
             },
+            link() {
+                return this.getLink(this.selected);
+            }
         },
         methods: {
             openEditor() {

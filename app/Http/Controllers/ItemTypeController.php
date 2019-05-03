@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
+use Spatie\QueryBuilder\Filter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ItemTypeController extends Controller
@@ -28,7 +29,7 @@ class ItemTypeController extends Controller
     public function jsonIndex(Request $request)
     {
         $query = QueryBuilder::for(ItemType::class)
-            ->allowedFilters(['manufacturer', 'model', 'stock_type']);
+            ->allowedFilters([Filter::exact('id'), 'manufacturer', 'model', 'stock_type']);
 
         return $request->has('all')
             ? $query->get()
