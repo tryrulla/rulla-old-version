@@ -29,7 +29,15 @@ class ItemTypeController extends Controller
     public function jsonIndex(Request $request)
     {
         $query = QueryBuilder::for(ItemType::class)
-            ->allowedFilters([Filter::exact('id'), 'manufacturer', 'model', 'stock_type']);
+            ->allowedFilters([
+                Filter::exact('id'),
+                'manufacturer',
+                'model',
+                'stock_type',
+
+                Filter::scope('has_stock_in'),
+            ])
+            ->with('stockBalances');
 
         return $request->has('all')
             ? $query->get()

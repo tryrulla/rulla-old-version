@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">
             <h1>
-                All types
+                All locations
             </h1>
         </div>
 

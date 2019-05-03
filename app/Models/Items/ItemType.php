@@ -4,6 +4,7 @@ namespace App\Models\Items;
 
 use App\Models\Traits\HasFormattedIdentifier;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ItemType extends Model
 {
@@ -46,5 +47,12 @@ class ItemType extends Model
     {
         return $this->hasMany(ItemStockBalance::class, 'type_id', 'id')
             ->with('location');
+    }
+
+    public function scopeHasStockIn($query, $locationId)
+    {
+        return $query->whereHas('stockBalances', function ($stockQuery) use ($locationId) {
+            return $stockQuery->where('location_id', '=', $locationId);
+        });
     }
 }

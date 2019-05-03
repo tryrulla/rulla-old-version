@@ -51,8 +51,7 @@
 </template>
 
 <script>
-    import moment from 'moment-timezone';
-    import {upsert} from "../../utilities";
+    import {formatDate, upsert} from "../../utilities";
 
     import AddButton from './AddButton';
     import EditButton from './EditButton';
@@ -65,9 +64,7 @@
         },
         methods: {
             formatDate(date) {
-                return moment.tz(date, 'UTC')
-                    .tz(moment.tz.guess())
-                    .format('Y-MM-DD kk:mm');
+                return formatDate(date);
             },
             update(locationId, data) {
                 this.data = upsert(this.data, 'location_id', locationId, data);

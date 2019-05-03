@@ -51,9 +51,11 @@
                         </tr>
                     </table>
 
-                    <location-instance-list
-                        url="{{ route('api.instances.index', ['all' => '1', 'filter' => ['location_id' => $location->id]]) }}"
-                    ></location-instance-list>
+                    <location-item-list
+                        instance-url="{{ route('api.instances.index', ['all' => '1', 'filter' => ['location_id' => $location->id]]) }}"
+                        stock-url="{{ route('api.types.index', ['all' => '1', 'filter' => ['has_stock_in' => $location->id]]) }}"
+                        location-id="{{ $location->id }}"
+                    ></location-item-list>
                 </div>
 
                 <div class="md:w-1/2"></div>
