@@ -15,7 +15,7 @@
                 </td>
             </tr>
 
-            <tr>
+            <tr class="text-sm">
                 <th class="w-2/6">Location</th>
                 <th class="w-1/6">Balance</th>
                 <th class="w-2/6">Last updated</th>

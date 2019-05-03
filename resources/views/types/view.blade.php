@@ -95,6 +95,10 @@
                             save-url="{{ route('api.types.updateStock', $type) }}"
                             suggestion-url="{{ route('api.types.suggestLocations', $type) }}"
                         ></item-stock-balance>
+                    @elseif($type->stock_type->isInstance())
+                        <item-type-instances
+                            :data="{{ $type->instances()->with('location')->get() }}"
+                        ></item-type-instances>
                     @endif
                 </div>
             </div>

@@ -9,6 +9,7 @@ import vSelect from 'vue-select';
 
 import LocationItemList from './components/location-item-list/LocationItemList.vue';
 import ItemStockBalance from './components/item-stock-balance/ItemStockBalance.vue';
+import ItemTypeInstances from './components/ItemTypeInstances.vue';
 import EditableTextField from './components/EditableTextField.vue';
 import ItemInstanceList from './components/ItemInstanceList.vue';
 import EditableSelect from './components/EditableSelect.vue';
@@ -28,8 +29,9 @@ Vue.use(VueRouter);
 Vue.use(PortalVue);
 Vue.use(VTooltip);
 
-Vue.component('location-item-list', LocationItemList);
+Vue.component('item-type-instances', ItemTypeInstances);
 Vue.component('editable-text-field', EditableTextField);
+Vue.component('location-item-list', LocationItemList);
 Vue.component('item-stock-balance', ItemStockBalance);
 Vue.component('item-instance-list', ItemInstanceList);
 Vue.component('editable-select', EditableSelect);
