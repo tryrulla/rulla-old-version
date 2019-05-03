@@ -13,6 +13,7 @@ import HiddenInputSearchSelector from './components/HiddenInputSearchSelector.vu
 import ItemTypeInstances from './components/ItemTypeInstances.vue';
 import EditableTextField from './components/EditableTextField.vue';
 import ItemInstanceList from './components/ItemInstanceList.vue';
+import ReservationList from './components/ReservationList.vue';
 import EditableSelect from './components/EditableSelect.vue';
 import ItemTypeList from './components/ItemTypeList.vue';
 import LocationList from './components/LocationList.vue';
@@ -38,6 +39,7 @@ Vue.component('editable-text-field', EditableTextField);
 Vue.component('location-item-list', LocationItemList);
 Vue.component('item-stock-balance', ItemStockBalance);
 Vue.component('item-instance-list', ItemInstanceList);
+Vue.component('reservation-list', ReservationList);
 Vue.component('editable-select', EditableSelect);
 Vue.component('item-type-list', ItemTypeList);
 Vue.component('location-list', LocationList);

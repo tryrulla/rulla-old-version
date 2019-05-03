@@ -6,6 +6,10 @@
     </div>
 
     <div>
-        user
+        @auth
+            {{ Auth::user()->name }} [{{ Auth::user()->username }}]
+        @else
+            <a href="{{ route('login') }}">Log in</a>
+        @endauth
     </div>
 </div>

@@ -11,39 +11,55 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Auth::routes([
+    'register' => false,
+]);
 
-Route::get('types', 'ItemTypeController@index')
-    ->name('types.index');
+Route::view('/', 'welcome')
+    ->name('home');
 
-Route::get('types/new', 'ItemTypeController@create')
-    ->name('types.create');
+Route::middleware('auth')->group(function () {
+    Route::get('types', 'ItemTypeController@index')
+        ->name('types.index');
 
-Route::post('types/new', 'ItemTypeController@store');
+    Route::get('types/new', 'ItemTypeController@create')
+        ->name('types.create');
 
-Route::get('types/{type}', 'ItemTypeController@show')
-    ->name('types.view');
+    Route::post('types/new', 'ItemTypeController@store');
 
-Route::get('instances', 'ItemInstanceController@index')
-    ->name('instances.index');
+    Route::get('types/{type}', 'ItemTypeController@show')
+        ->name('types.view');
 
-Route::get('instances/new', 'ItemInstanceController@create')
-    ->name('instances.create');
+    Route::get('instances', 'ItemInstanceController@index')
+        ->name('instances.index');
 
-Route::post('instances/new', 'ItemInstanceController@store');
+    Route::get('instances/new', 'ItemInstanceController@create')
+        ->name('instances.create');
 
-Route::get('instances/{instance}', 'ItemInstanceController@show')
-    ->name('instances.view');
+    Route::post('instances/new', 'ItemInstanceController@store');
 
-Route::get('locations', 'LocationController@index')
-    ->name('locations.index');
+    Route::get('instances/{instance}', 'ItemInstanceController@show')
+        ->name('instances.view');
 
-Route::get('locations/new', 'LocationController@create')
-    ->name('locations.create');
+    Route::get('locations', 'LocationController@index')
+        ->name('locations.index');
 
-Route::post('locations/new', 'LocationController@store');
+    Route::get('locations/new', 'LocationController@create')
+        ->name('locations.create');
 
-Route::get('locations/{location}', 'LocationController@show')
-    ->name('locations.view');
+    Route::post('locations/new', 'LocationController@store');
+
+    Route::get('locations/{location}', 'LocationController@show')
+        ->name('locations.view');
+
+    Route::get('reservations', 'ReservationController@index')
+        ->name('reservations.index');
+
+    Route::get('reservations/new', 'ReservationController@create')
+        ->name('reservations.create');
+
+    Route::post('reservations/new', 'ReservationController@store');
+
+    Route::get('reservations/{reservation}', 'ReservationController@show')
+        ->name('reservations.view');
+});

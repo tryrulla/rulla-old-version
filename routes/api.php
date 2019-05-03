@@ -13,11 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::prefix('v1')->group(function () {
+Route::middleware('auth')->prefix('v1')->group(function () {
     Route::get('types', 'ItemTypeController@jsonIndex')
         ->name('api.types.index');
 
@@ -41,4 +37,10 @@ Route::prefix('v1')->group(function () {
 
     Route::put('locations/{location}', 'LocationController@update')
         ->name('api.locations.update');
+
+    Route::get('reservations', 'ReservationController@jsonIndex')
+        ->name('api.reservations.index');
+
+    Route::put('reservations/{reservation}', 'ReservationController@update')
+        ->name('api.reservations.update');
 });
