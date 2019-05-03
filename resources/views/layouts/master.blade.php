@@ -39,6 +39,7 @@
     </form>
 @endauth
 
+@stack('beforeScripts')
 <script src="{{ mix('assets/app.js') }}"></script>
 @stack('scripts')
 

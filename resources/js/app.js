@@ -9,6 +9,7 @@ import vSelect from 'vue-select';
 
 import LocationItemList from './components/location-item-list/LocationItemList.vue';
 import ItemStockBalance from './components/item-stock-balance/ItemStockBalance.vue';
+import HiddenInputSearchSelector from './components/HiddenInputSearchSelector.vue';
 import ItemTypeInstances from './components/ItemTypeInstances.vue';
 import EditableTextField from './components/EditableTextField.vue';
 import ItemInstanceList from './components/ItemInstanceList.vue';
@@ -16,6 +17,8 @@ import EditableSelect from './components/EditableSelect.vue';
 import ItemTypeList from './components/ItemTypeList.vue';
 import LocationList from './components/LocationList.vue';
 import Modal from './components/Modal.vue';
+
+window.Vue = Vue;
 
 Vue.directive('autofocus-select', {
     inserted: function (el) {
@@ -29,6 +32,7 @@ Vue.use(VueRouter);
 Vue.use(PortalVue);
 Vue.use(VTooltip);
 
+Vue.component('hidden-input-search-selector', HiddenInputSearchSelector);
 Vue.component('item-type-instances', ItemTypeInstances);
 Vue.component('editable-text-field', EditableTextField);
 Vue.component('location-item-list', LocationItemList);

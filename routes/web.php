@@ -29,6 +29,11 @@ Route::get('types/{type}', 'ItemTypeController@show')
 Route::get('instances', 'ItemInstanceController@index')
     ->name('instances.index');
 
+Route::get('instances/new', 'ItemInstanceController@create')
+    ->name('instances.create');
+
+Route::post('instances/new', 'ItemInstanceController@store');
+
 Route::get('instances/{instance}', 'ItemInstanceController@show')
     ->name('instances.view');
 

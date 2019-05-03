@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Items\ItemInstance;
+use App\Models\Items\ItemStockType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 use Spatie\QueryBuilder\Filter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -39,7 +41,7 @@ class ItemInstanceController extends Controller
      */
     public function create()
     {
-        //
+        return view('instances.new');
     }
 
     /**
@@ -50,7 +52,25 @@ class ItemInstanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'label' => 'nullable|min:2',
+            'type_id' => 'nullable|exists:item_types,id',
+            'location_id' => 'nullable|exists:locations,id',
+        ]);
+
+        $instance = ItemInstance::create($data);
+
+        if ($request->get('submit', 'normal') === 'another') {
+            session()->flash('status-color', 'green');
+            session()->flash('status', "Item instance $instance->identifier was created.");
+
+            $request->flashOnly('location_id');
+
+            return redirect()
+                ->route('instances.create');
+        }
+
+        return redirect()->route('instances.view',  $instance);
     }
 
     /**
@@ -74,7 +94,7 @@ class ItemInstanceController extends Controller
     public function update(Request $request, ItemInstance $instance)
     {
         $instance->update($request->validate([
-            'label' => 'nullable',
+            'label' => 'nullable|min:2',
             'type_id' => 'nullable|exists:item_types,id',
             'location_id' => 'nullable|exists:locations,id',
         ]));

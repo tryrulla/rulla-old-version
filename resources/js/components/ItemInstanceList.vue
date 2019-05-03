@@ -4,6 +4,12 @@
             <h1>
                 All instances
             </h1>
+
+            <div class="text-xs">
+                <a :href="newUrl" class="text-blue-800 underline">
+                    new
+                </a>
+            </div>
         </div>
 
         <div v-if="loading" class="w-full h-16 flex">
@@ -137,6 +143,6 @@
                 });
             }
         },
-        props: ['url']
+        props: ['url', 'newUrl']
     }
 </script>
