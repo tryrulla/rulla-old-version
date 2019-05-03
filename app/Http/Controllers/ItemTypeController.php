@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Items\ItemInstance;
 use App\Models\Items\ItemStockBalance;
 use App\Models\Items\ItemStockType;
 use App\Models\Items\ItemType;
@@ -11,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ItemTypeController extends Controller
 {
@@ -27,11 +27,12 @@ class ItemTypeController extends Controller
 
     public function jsonIndex(Request $request)
     {
-        if ($request->has('all')) {
-            return ItemType::all();
-        }
+        $query = QueryBuilder::for(ItemType::class)
+            ->allowedFilters(['manufacturer', 'model', 'stock_type']);
 
-        return ItemType::paginate(25);
+        return $request->has('all')
+            ? $query->get()
+            : $query->paginate(25);
     }
 
     /**

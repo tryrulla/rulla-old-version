@@ -38,4 +38,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('locations', 'LocationController@jsonIndex')
         ->name('api.locations.index');
+
+    Route::put('locations/{location}', 'LocationController@update')
+        ->name('api.locations.update');
 });

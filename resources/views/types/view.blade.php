@@ -43,6 +43,7 @@
                                 <editable-text-field
                                     url="{{ route('api.types.update', $type) }}"
                                     id="manufacturer"
+                                    name="Manufacturer"
                                     :initial-value="{{ json_encode($type->manufacturer) }}"
                                     :refresh="true"
                                 ></editable-text-field>
@@ -58,6 +59,7 @@
                                 <editable-text-field
                                     url="{{ route('api.types.update', $type) }}"
                                     id="model"
+                                    name="Model"
                                     :initial-value="{{ json_encode($type->model) }}"
                                     :refresh="true"
                                 ></editable-text-field>

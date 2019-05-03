@@ -8,12 +8,6 @@
             <h1 class="text-xl text-black font-bold">
                 {{ $location->identifier }}: {{ $location->name }}
             </h1>
-
-            <div class="text-xs">
-                <a href="{{ route('instances.edit', $location) }}" class="text-blue-800 underline">
-                    edit
-                </a>
-            </div>
         </div>
 
         <div class="p-4">
@@ -46,7 +40,13 @@
                             </th>
 
                             <td>
-                                {{ $location->name }}
+                                <editable-text-field
+                                    url="{{ route('api.locations.update', $location) }}"
+                                    name="Name"
+                                    id="name"
+                                    :initial-value="{{ json_encode($location->name) }}"
+                                    :refresh="true"
+                                ></editable-text-field>
                             </td>
                         </tr>
                     </table>

@@ -45,6 +45,7 @@
                             <td>
                                 <editable-text-field
                                     url="{{ route('api.instances.update', $instance) }}"
+                                    name="Label"
                                     id="label"
                                     :initial-value="{{ json_encode($instance->label) }}"
                                     :refresh="true"
@@ -57,7 +58,7 @@
                             <td>
                                 <editable-select
                                     url="{{ route('api.instances.update', $instance) }}"
-                                    data-url="{{ route('api.types.index', ['all' => '1']) }}"
+                                    data-url="{{ route('api.types.index', ['all' => '1', 'filter' => ['stock_type' => 'instance']]) }}"
                                     id="type_id"
                                     name="Item type"
                                     :label="type => type ? `[${type.identifier}] ${type.name}` : '–'"

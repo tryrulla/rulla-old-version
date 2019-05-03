@@ -1,27 +1,55 @@
 <template>
-    <div v-if="editing">
-        <input class="" type="text" v-model="value" v-autofocus
-               @keyup.enter="save" @keyup.esc="save" v-on:blur="save"/>
-    </div>
+    <div>
+        <div v-if="value.length > 0" class="group rounded">
+            <span @dblclick="openEditor">{{ editing ? ogValue : value }}</span>
+            <button class="text-gray-600 text-xs hidden group-hover:inline" @click="openEditor">
+                <i class="fas fa-pen"></i>
+            </button>
+        </div>
 
-    <div v-else-if="value.length > 0" class="group rounded">
-        <span @dblclick="openEditor">{{ value }}</span>
-        <button class="text-gray-600 text-xs hidden group-hover:inline" @click="openEditor">
-            <i class="fas fa-pen"></i>
-        </button>
-    </div>
+        <div v-else>
+            <button @click="openEditor" class="text-gray-600">(add)</button>
+        </div>
 
-    <div v-else>
-        <button @click="openEditor" class="text-gray-600">(add)</button>
+        <modal :open="editing" @close="editing = false">
+            <div class="card w-screen-1/2">
+                <div class="card-header">
+                    <h1>Change {{ name }}</h1>
+                </div>
+
+                <div class="p-4">
+                    <div class="flex my-2">
+                        <div class="w-1/3">
+                            {{ name }}
+                        </div>
+                        <div class="w-2/3">
+                            <input class="input-text" type="text" v-model="value" v-autofocus
+                                   @keyup.enter="save" @keyup.esc="cancel" />
+                        </div>
+                    </div>
+
+                    <div class="flex my-2">
+                        <div class="w-1/3"></div>
+                        <div class="w-2/3">
+                            <button class="button-white" @click="save">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal>
     </div>
 </template>
 
 <script>
     export default {
         props: {
+            name: String,
             id: String,
             url: String,
             initialValue: String,
+
             refresh: {
                 type: Boolean,
                 default: false
@@ -56,7 +84,11 @@
                     console.error(error);
                     alert(error);
                 });
-            }
+            },
+            cancel() {
+                this.editing = false;
+                this.value = this.ogValue;
+            },
         },
     };
 </script>

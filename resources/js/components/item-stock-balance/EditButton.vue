@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <div class="flex">
+                    <div class="flex my-2">
                         <div class="w-1/3"></div>
                         <div class="w-2/3">
                             <button class="button-white" @click="submit">
@@ -79,7 +79,6 @@
 
                 axios.post(this.saveUrl, {location: this.location.id, amount: this.selectedAmount})
                     .then(({data}) => {
-                        console.log({data});
                         this.update(data.location_id, data);
 
                         const dataToUpdate = Object.assign({}, defaultData, {selectedAmount: this.oldAmount});
