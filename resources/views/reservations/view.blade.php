@@ -10,9 +10,9 @@
             </h1>
         </div>
 
-        <div class="p-4">
+        <div>
             <div class="md:flex">
-                <div class="md:w-1/2">
+                <div class="md:w-1/2 p-4">
                     <table class="table">
                         <tr>
                             <th class="w-1/4">
@@ -76,9 +76,102 @@
                             </td>
                         </tr>
                     </table>
+
+                    <table class="table mt-4">
+                        <tr class="header">
+                            <th colspan="2">
+                                Author
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th class="w-1/4">
+                                Identifier
+                            </th>
+
+                            <td class="w-3/4">
+                                {{ $reservation->author->identifier }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+
+                            <td>
+                                {{ $reservation->author->name }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                Username
+                            </th>
+
+                            <td>
+                                {{ $reservation->author->username }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                E-mail
+                            </th>
+
+                            <td>
+                                {{ $reservation->author->email }}
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
-                <div class="md:w-1/2"></div>
+                <div class="md:w-1/2 p-4">
+                    <table class="table">
+                        <tr class="header">
+                            <th colspan="3">
+                                Reserved items
+                            </th>
+                        </tr>
+
+                        <tr class="text-sm">
+                            <th class="w-1/5">
+                                Status
+                            </th>
+
+                            <th class="w-2/5">
+                                Item
+                            </th>
+
+                            <th class="w-2/5">
+                                Type
+                            </th>
+                        </tr>
+
+                        @foreach($reservation->items as $item)
+                            <tr>
+                                <td>
+                                    <reservation-status
+                                        :item="true"
+                                        status="{{ $item->status }}"
+                                    ></reservation-status>
+                                </td>
+
+                                <td>
+                                    <a href="{{ $item->item->viewUrl }}">
+                                        [{{ $item->item->identifier }}] {{ $item->item->label }}
+                                    </a>
+
+                                </td>
+                                <td>
+                                    <a href="{{ $item->item->type->viewUrl }}">
+                                        [{{ $item->item->type->identifier }}] {{ $item->item->type->name }}
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
             </div>
         </div>
     </div>

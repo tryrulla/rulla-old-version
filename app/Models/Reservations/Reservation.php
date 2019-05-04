@@ -2,7 +2,6 @@
 
 namespace App\Models\Reservations;
 
-use App\Models\Items\ItemStockType;
 use App\Models\Traits\HasFormattedIdentifier;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -12,13 +11,13 @@ class Reservation extends Model
     use HasFormattedIdentifier;
 
     protected $guarded = [];
-    protected $relations = ['author'];
+    protected $relations = ['author', 'items'];
     protected $appends = ['identifier', 'viewUrl', 'status'];
 
     protected $casts = [
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
-        'has_started' => 'boolean',
+        'started' => 'boolean',
     ];
 
     public function getViewUrlAttribute()
@@ -45,6 +44,10 @@ class Reservation extends Model
             return ReservationStatus::rejected();
         }
 
+        if ($this->started) {
+            return ReservationStatus::out();
+        }
+
         return ReservationStatus::planned();
     }
 
@@ -56,5 +59,10 @@ class Reservation extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id', 'id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(ReservedItem::class, 'reservation_id', 'id');
     }
 }

@@ -63,6 +63,7 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
+        $reservation->loadMissing('author', 'items.item.type');
         return view('reservations.view', compact('reservation'));
     }
 

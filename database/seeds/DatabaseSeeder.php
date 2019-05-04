@@ -19,25 +19,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        factory(User::class)->create([
             'name' => 'Rulla Admin',
             'username' => 'admin',
             'email' => 'rulla-admin@tassu.me',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
         ]);
+
+        factory(User::class, 24)->create();
 
         // create the real examples
         $this->call(MicrophoneSeed::class);
 
         /** @var Collection $locations */
-        $locations = factory(Location::class, 10)->create();
+        $locations = factory(Location::class, 25)->create();
 
-        factory(ItemInstance::class, 10)->create();
+        factory(ItemInstance::class, 15)->create();
 
         // create the fake examples
         $faker = Faker::create();
-        factory(ItemType::class, 6)->create()->each(function (ItemType $type) use ($faker, $locations) {
+        factory(ItemType::class, 26)->create()->each(function (ItemType $type) use ($faker, $locations) {
             if ($type->stock_type->isInstance()) {
                 $type->instances()->saveMany(
                     factory(ItemInstance::class, 10)->make()->map(function ($instance) use ($faker) {
@@ -62,6 +62,6 @@ class DatabaseSeeder extends Seeder
             }
         });
 
-        factory(Reservation::class, 5)->create();
+        factory(Reservation::class, 15)->create();
     }
 }

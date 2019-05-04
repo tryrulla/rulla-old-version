@@ -13,7 +13,7 @@ $factory->define(Reservation::class, function (Faker $faker) {
         'approval_status' => $faker->boolean(33) ? ReservationApprovalStatus::awaiting()
             : ($faker->boolean ? ReservationApprovalStatus::rejected() : ReservationApprovalStatus::approved()),
         'author_id' => User::all()->random()->id,
-        'starts_at' => now()->addMinutes($faker->numberBetween(5, 180)),
+        'starts_at' => now()->addMinutes($faker->numberBetween(5, 120)),
         'ends_at' => now()->addHours(2)->addMinutes($faker->numberBetween(5, 180)),
     ];
 });

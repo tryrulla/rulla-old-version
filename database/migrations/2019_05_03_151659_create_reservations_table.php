@@ -26,6 +26,10 @@ class CreateReservationsTable extends Migration
 
             $table->string('approval_status');
 
+            // true if at least one item has been read out
+            $table->boolean('started')
+                ->default(false);
+
             $table->timestamps();
         });
     }
