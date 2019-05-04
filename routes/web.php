@@ -11,14 +11,16 @@
 |
 */
 
-Auth::routes([
-    'register' => false,
-]);
-
-Route::view('/', 'welcome')
-    ->name('home');
+Route::prefix('auth')->group(function () {
+    Auth::routes([
+        'register' => false,
+    ]);
+});
 
 Route::middleware('auth')->group(function () {
+    Route::view('/', 'welcome')
+        ->name('home');
+
     Route::get('types', 'ItemTypeController@index')
         ->name('types.index');
 

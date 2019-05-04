@@ -63,18 +63,7 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Reservation $reservation
-     * @return Response
-     */
-    public function edit(Reservation $reservation)
-    {
-        //
+        return view('reservations.view', compact('reservation'));
     }
 
     /**

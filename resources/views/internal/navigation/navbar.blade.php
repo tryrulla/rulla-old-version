@@ -7,7 +7,7 @@
 
     <div>
         @auth
-            {{ Auth::user()->name }} [{{ Auth::user()->username }}]
+            [{{ Auth::user()->identifier }}] {{ Auth::user()->name }} ({{ Auth::user()->username }})
         @else
             <a href="{{ route('login') }}">Log in</a>
         @endauth

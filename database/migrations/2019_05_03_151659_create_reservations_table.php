@@ -24,7 +24,7 @@ class CreateReservationsTable extends Migration
             $table->dateTime('starts_at');
             $table->dateTime('ends_at');
 
-            $table->string('status');
+            $table->string('approval_status');
 
             $table->timestamps();
         });

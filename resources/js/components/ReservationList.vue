@@ -45,10 +45,10 @@
                         </a>
                     </td>
                     <td>
-                        {{ capitalize(row.status) }}
+                        <reservation-status :status="row.status"></reservation-status>
                     </td>
                     <td>
-                        [{{ row.author.identifier }}] {{ row.author.name }}
+                        [{{ row.author.identifier }}] {{ row.author.name }} ({{ row.author.username }})
                     </td>
                     <td>
                         {{ formatDate(row.starts_at) }}

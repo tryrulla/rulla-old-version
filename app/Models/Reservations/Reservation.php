@@ -13,7 +13,7 @@ class Reservation extends Model
 
     protected $guarded = [];
     protected $relations = ['author'];
-    protected $appends = ['identifier', 'viewUrl'];
+    protected $appends = ['identifier', 'viewUrl', 'status'];
 
     protected $casts = [
         'starts_at' => 'datetime',
@@ -26,13 +26,26 @@ class Reservation extends Model
         return route('reservations.view', $this);
     }
 
-    public function getStatusAttribute($value)
+    public function getApprovalStatusAttribute($value): ReservationApprovalStatus
     {
-        if ($value instanceof ItemStockType) {
+        if ($value instanceof ReservationApprovalStatus) {
             return $value;
         }
 
-        return ReservationStatus::make($value);
+        return ReservationApprovalStatus::make($value);
+    }
+
+    public function getStatusAttribute(): ReservationStatus
+    {
+        /** @var ReservationApprovalStatus $approvalStatus */
+        $approvalStatus = $this->approval_status;
+        if ($approvalStatus->isEqual(ReservationApprovalStatus::awaiting())) {
+            return ReservationStatus::awaitingApproval();
+        } else if ($approvalStatus->isEqual(ReservationApprovalStatus::rejected())) {
+            return ReservationStatus::rejected();
+        }
+
+        return ReservationStatus::planned();
     }
 
     public function getIdentifierPrefixLetter(): string
