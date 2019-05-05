@@ -127,69 +127,10 @@
                 </div>
 
                 <div class="md:w-1/2 p-4">
-                    <table class="table">
-                        <tr class="header">
-                            <th colspan="4">
-                                Reserved items
-                            </th>
-                        </tr>
-
-                        <tr class="text-sm">
-                            <th>
-                                Status
-                            </th>
-
-                            <th class="w-1/3">
-                                Item
-                            </th>
-
-                            <th class="w-1/3">
-                                Type
-                            </th>
-
-                            <th class="w-1/3">
-                                Location
-                            </th>
-                        </tr>
-
-                        @foreach($reservation->items as $item)
-                            <tr>
-                                <td class="whitespace-no-wrap">
-                                    <reservation-status
-                                        :item="true"
-                                        status="{{ $item->status }}"
-                                    ></reservation-status>
-                                </td>
-
-                                <td>
-                                    <a href="{{ $item->item->viewUrl }}">
-                                        [{{ $item->item->identifier }}] {{ $item->item->label }}
-                                    </a>
-
-                                </td>
-
-                                <td>
-                                    @if($item->item->type)
-                                        <a href="{{ $item->item->type->viewUrl }}">
-                                            [{{ $item->item->type->identifier }}] {{ $item->item->type->name }}
-                                        </a>
-                                    @else
-                                        &ndash;
-                                    @endif
-                                </td>
-
-                                <td>
-                                    @if($item->item->location)
-                                        <a href="{{ $item->item->location->viewUrl }}">
-                                            [{{ $item->item->location->identifier }}] {{ $item->item->location->name }}
-                                        </a>
-                                    @else
-                                        &ndash;
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </table>
+                    <reservation-items
+                        :item-data="{{ json_encode($reservation->items) }}"
+                        update-url="{{ route('api.reservations.update', $reservation) }}"
+                    ></reservation-items>
                 </div>
             </div>
         </div>

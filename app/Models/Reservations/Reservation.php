@@ -48,7 +48,7 @@ class Reservation extends Model
         if ($this->started) {
             if ($this->items->filter(function ($item) {
                 /** @var ReservedItem $item */
-                return ! $item->status->isReturned();
+                return !$item->status->isReturned();
             })->count() === 0) {
                 return ReservationStatus::completed();
             }

@@ -66,7 +66,7 @@
                     case 'planned':
                         return ['bg-blue-200', 'text-blue-900'];
                     case 'out':
-                        return ['bg-green-500', 'text-green-900'];
+                        return ['bg-green-400', 'text-green-900'];
                     case 'completed':
                         return ['bg-green-200', 'text-green-900'];
                     case 'overdue':

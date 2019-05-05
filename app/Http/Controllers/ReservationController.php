@@ -136,11 +136,26 @@ class ReservationController extends Controller
      *
      * @param Request $request
      * @param Reservation $reservation
-     * @return Response
+     * @return Reservation
      */
     public function update(Request $request, Reservation $reservation)
     {
-        //
+        if ($request->has('read-out')) {
+            $amount = $reservation->items()
+                ->whereIn('item_id', $request->get('read-out', []))
+                ->where('status', ReservedItemStatus::inStock())
+                ->update([
+                    'status' => ReservedItemStatus::out(),
+                ]);
+
+            if ($amount > 0 && !$reservation->started) {
+                $reservation->started = true;
+                $reservation->save();
+            }
+        }
+
+        $reservation->load('author', 'items.item.type', 'items.item.location');
+        return $reservation;
     }
 
     /**
