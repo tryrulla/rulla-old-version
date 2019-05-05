@@ -4,6 +4,7 @@ namespace App\Models\Reservations;
 
 use App\Models\Traits\HasFormattedIdentifier;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
@@ -45,7 +46,22 @@ class Reservation extends Model
         }
 
         if ($this->started) {
+            if ($this->items->filter(function ($item) {
+                /** @var ReservedItem $item */
+                return ! $item->status->isReturned();
+            })->count() === 0) {
+                return ReservationStatus::completed();
+            }
+
+            if ($this->ends_at->isBefore(Carbon::now())) {
+                return ReservationStatus::overdue();
+            }
+
             return ReservationStatus::out();
+        }
+
+        if ($this->ends_at->isBefore(Carbon::now())) {
+            return ReservationStatus::completed();
         }
 
         return ReservationStatus::planned();

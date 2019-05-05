@@ -77,8 +77,6 @@ class ReservationController extends Controller
         $attributes['starts_at'] = Carbon::make($attributes['starts_at'])->tz('UTC');
         $attributes['ends_at'] = Carbon::make($attributes['ends_at'])->tz('UTC');
 
-        // dd($attributes);
-
         DB::beginTransaction();
 
         try {

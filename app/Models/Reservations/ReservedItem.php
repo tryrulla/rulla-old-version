@@ -19,4 +19,13 @@ class ReservedItem extends Model
     {
         return $this->belongsTo(ItemInstance::class, 'item_id', 'id');
     }
+
+    public function getStatusAttribute($value): ReservedItemStatus
+    {
+        if ($value instanceof ReservedItemStatus) {
+            return $value;
+        }
+
+        return ReservedItemStatus::make($value);
+    }
 }

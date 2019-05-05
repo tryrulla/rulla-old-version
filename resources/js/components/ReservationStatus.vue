@@ -39,6 +39,8 @@
                         return 'Planned';
                     case 'out':
                         return 'Out';
+                    case 'overdue':
+                        return 'Overdue';
                     case 'completed':
                         return 'Completed';
                     default:
@@ -67,6 +69,8 @@
                         return ['bg-green-500', 'text-green-900'];
                     case 'completed':
                         return ['bg-green-200', 'text-green-900'];
+                    case 'overdue':
+                        return ['bg-red-300', 'text-red-900'];
                     case 'awaitingApproval':
                     default:
                         return ['bg-gray-200', 'text-gray-900'];
