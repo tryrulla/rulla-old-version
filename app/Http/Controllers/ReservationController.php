@@ -140,6 +140,8 @@ class ReservationController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
+        $oldStatus = $reservation->status;
+
         if ($request->has('read-out')) {
             $amount = $reservation->items()
                 ->whereIn('item_id', $request->get('read-out', []))
@@ -154,8 +156,22 @@ class ReservationController extends Controller
             }
         }
 
+        if ($request->has('return')) {
+            $amount = $reservation->items()
+                ->whereIn('item_id', $request->get('return', []))
+                ->where('status', ReservedItemStatus::out())
+                ->update([
+                    'status' => ReservedItemStatus::returned(),
+                ]);
+
+            if ($amount > 0 && !$reservation->started) {
+                $reservation->started = true;
+                $reservation->save();
+            }
+        }
+
         $reservation->load('author', 'items.item.type', 'items.item.location');
-        return $reservation;
+        return response()->json(['data' => $reservation, 'oldStatus' => $oldStatus]);
     }
 
     /**

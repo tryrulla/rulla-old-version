@@ -64,6 +64,10 @@
                 <button @click="() => readOut(item.item_id)" v-if="item.status === 'inStock'">
                     read out
                 </button>
+
+                <button @click="() => returnBack(item.item_id)" v-if="item.status === 'out'">
+                    return
+                </button>
             </td>
         </tr>
     </table>
@@ -81,18 +85,27 @@
             };
         },
         methods: {
-            readOut(id) {
-                console.log({id});
-                axios.put(this.updateUrl, {'read-out': [id]})
+            update(data) {
+                axios.put(this.updateUrl, data)
                     .then(({data}) => {
                         console.log(data);
-                        this.data = data.items;
+                        this.data = data.data.items;
+
+                        if (data.oldStatus !== data.data.status) {
+                            window.location.reload();
+                        }
                     })
                     .catch(error => {
                         console.error(error);
                         alert(error);
                     });
-            }
+            },
+            readOut(id) {
+                this.update({'read-out': [id]});
+            },
+            returnBack(id) {
+                this.update({'return': [id]});
+            },
         },
     }
 </script>
