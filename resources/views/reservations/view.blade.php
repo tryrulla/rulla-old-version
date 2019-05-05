@@ -11,7 +11,12 @@
         </div>
 
         <div>
-            <div class="md:flex">
+            <reservation-page
+                :data="{{ json_encode($reservation) }}"
+                update-url="{{ route('api.reservations.update', $reservation) }}"
+            ></reservation-page>
+
+        <!-- <div class="md:flex">
                 <div class="md:w-1/2 p-4">
                     <table class="table">
                         <tr>
@@ -127,12 +132,10 @@
                 </div>
 
                 <div class="md:w-1/2 p-4">
-                    <reservation-items
-                        :item-data="{{ json_encode($reservation->items) }}"
-                        update-url="{{ route('api.reservations.update', $reservation) }}"
-                    ></reservation-items>
                 </div>
             </div>
+
+            -->
         </div>
     </div>
 @endsection

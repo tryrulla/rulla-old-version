@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Items\ItemInstance;
 use App\Models\Reservations\Reservation;
 use App\Models\Reservations\ReservationApprovalStatus;
+use App\Models\Reservations\ReservationStatus;
 use App\Models\Reservations\ReservedItem;
 use App\Models\Reservations\ReservedItemStatus;
 use Carbon\Carbon;
@@ -140,9 +141,14 @@ class ReservationController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
-        $oldStatus = $reservation->status;
+        /** @var ReservationStatus $status */
+        $status = $reservation->status;
 
         if ($request->has('read-out')) {
+            if (!$status->isPlanned() && !$status->isOut() && !$status->isOverdue()) {
+                return abort(400, 'Invalid state');
+            }
+
             $amount = $reservation->items()
                 ->whereIn('item_id', $request->get('read-out', []))
                 ->where('status', ReservedItemStatus::inStock())
@@ -157,6 +163,10 @@ class ReservationController extends Controller
         }
 
         if ($request->has('return')) {
+            if (!$status->isPlanned() && !$status->isOut() && !$status->isOverdue()) {
+                return abort(400, 'Invalid state');
+            }
+
             $amount = $reservation->items()
                 ->whereIn('item_id', $request->get('return', []))
                 ->where('status', ReservedItemStatus::out())
@@ -170,8 +180,17 @@ class ReservationController extends Controller
             }
         }
 
+        if ($request->has('approval_status')) {
+            $status = $request->validate([
+                'approval_status' => ['required', Rule::in(ReservationApprovalStatus::getValues())],
+            ])['approval_status'];
+
+            $reservation->approval_status = $status;
+            $reservation->save();
+        }
+
         $reservation->load('author', 'items.item.type', 'items.item.location');
-        return response()->json(['data' => $reservation, 'oldStatus' => $oldStatus]);
+        return response()->json(['data' => $reservation, 'oldStatus' => $status]);
     }
 
     /**
