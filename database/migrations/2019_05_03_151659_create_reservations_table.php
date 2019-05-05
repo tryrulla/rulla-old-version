@@ -30,6 +30,9 @@ class CreateReservationsTable extends Migration
             $table->boolean('started')
                 ->default(false);
 
+            $table->boolean('cancelled')
+                ->default(false);
+
             $table->timestamps();
         });
     }

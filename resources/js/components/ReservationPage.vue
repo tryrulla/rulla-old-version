@@ -37,14 +37,28 @@
                                 :status="reservation.status"
                             ></reservation-status>
 
-                            <div class="my-2" v-if="reservation.status === 'awaitingApproval'">
-                                <button @click="() => update({approval_status: 'approved'})" class="text-blue-800 hover:underline">
-                                    approve
-                                </button>
+                            <div class="my-1">
+                                <div v-if="reservation.status === 'awaitingApproval'">
+                                    <button @click="() => update({approval_status: 'approved'})" class="text-blue-800 hover:underline">
+                                        approve
+                                    </button>
 
-                                <button @click="() => update({approval_status: 'rejected'})" class="text-blue-800 hover:underline">
-                                    reject
-                                </button>
+                                    <button @click="() => update({approval_status: 'rejected'})" class="text-blue-800 hover:underline">
+                                        reject
+                                    </button>
+                                </div>
+
+                                <div v-if="canCancel">
+                                    <button @click="() => update({cancelled: true})" class="text-blue-800 hover:underline">
+                                        cancel
+                                    </button>
+                                </div>
+
+                                <div v-if="reservation.status === 'cancelled'">
+                                    <button @click="() => update({cancelled: false})" class="text-blue-800 hover:underline">
+                                        un-cancel
+                                    </button>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -233,6 +247,12 @@
                     'planned',
                     'out',
                     'overdue'
+                ].includes(this.reservation.status);
+            },
+            canCancel() {
+                return [
+                    'awaitingApproval',
+                    'planned'
                 ].includes(this.reservation.status);
             },
         },

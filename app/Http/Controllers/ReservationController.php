@@ -65,6 +65,7 @@ class ReservationController extends Controller
         $attributes = array_merge(
             [
                 'started' => false,
+                'cancelled' => false,
                 'author_id' => $request->user()->id,
                 'approval_status' => ReservationApprovalStatus::awaiting(),
             ],
@@ -144,6 +145,16 @@ class ReservationController extends Controller
         /** @var ReservationStatus $status */
         $status = $reservation->status;
 
+        if ($request->has('cancelled')) {
+            if (!$status->isAwaitingApproval() && !$status->isCancelled() && !$status->isPlanned()) {
+                return abort(400, 'Invalid state');
+            }
+
+            $reservation->update($request->validate([
+                'cancelled' => 'required|boolean',
+            ]));
+        }
+
         if ($request->has('read-out')) {
             if (!$status->isPlanned() && !$status->isOut() && !$status->isOverdue()) {
                 return abort(400, 'Invalid state');
@@ -181,12 +192,9 @@ class ReservationController extends Controller
         }
 
         if ($request->has('approval_status')) {
-            $status = $request->validate([
+            $reservation->update($request->validate([
                 'approval_status' => ['required', Rule::in(ReservationApprovalStatus::getValues())],
-            ])['approval_status'];
-
-            $reservation->approval_status = $status;
-            $reservation->save();
+            ]));
         }
 
         $reservation->load('author', 'items.item.type', 'items.item.location');

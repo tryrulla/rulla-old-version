@@ -19,6 +19,7 @@ class Reservation extends Model
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
         'started' => 'boolean',
+        'cancelled' => 'boolean',
     ];
 
     public function getViewUrlAttribute()
@@ -37,6 +38,10 @@ class Reservation extends Model
 
     public function getStatusAttribute(): ReservationStatus
     {
+        if ($this->cancelled) {
+            return ReservationStatus::cancelled();
+        }
+
         /** @var ReservationApprovalStatus $approvalStatus */
         $approvalStatus = $this->approval_status;
         if ($approvalStatus->isEqual(ReservationApprovalStatus::awaiting())) {

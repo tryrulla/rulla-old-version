@@ -35,6 +35,8 @@
                         return 'Waiting for approval';
                     case 'rejected':
                         return 'Rejected';
+                    case 'cancelled':
+                        return 'Cancelled';
                     case 'planned':
                         return 'Planned';
                     case 'out':
@@ -62,6 +64,7 @@
 
                 switch (name) {
                     case 'rejected':
+                    case 'cancelled':
                         return ['bg-red-200', 'text-red-900'];
                     case 'planned':
                         return ['bg-blue-200', 'text-blue-900'];
