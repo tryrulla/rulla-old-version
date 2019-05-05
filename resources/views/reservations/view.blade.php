@@ -129,28 +129,32 @@
                 <div class="md:w-1/2 p-4">
                     <table class="table">
                         <tr class="header">
-                            <th colspan="3">
+                            <th colspan="4">
                                 Reserved items
                             </th>
                         </tr>
 
                         <tr class="text-sm">
-                            <th class="w-1/5">
+                            <th>
                                 Status
                             </th>
 
-                            <th class="w-2/5">
+                            <th class="w-1/3">
                                 Item
                             </th>
 
-                            <th class="w-2/5">
+                            <th class="w-1/3">
                                 Type
+                            </th>
+
+                            <th class="w-1/3">
+                                Location
                             </th>
                         </tr>
 
                         @foreach($reservation->items as $item)
                             <tr>
-                                <td>
+                                <td class="whitespace-no-wrap">
                                     <reservation-status
                                         :item="true"
                                         status="{{ $item->status }}"
@@ -163,10 +167,25 @@
                                     </a>
 
                                 </td>
+
                                 <td>
-                                    <a href="{{ $item->item->type->viewUrl }}">
-                                        [{{ $item->item->type->identifier }}] {{ $item->item->type->name }}
-                                    </a>
+                                    @if($item->item->type)
+                                        <a href="{{ $item->item->type->viewUrl }}">
+                                            [{{ $item->item->type->identifier }}] {{ $item->item->type->name }}
+                                        </a>
+                                    @else
+                                        &ndash;
+                                    @endif
+                                </td>
+
+                                <td>
+                                    @if($item->item->location)
+                                        <a href="{{ $item->item->location->viewUrl }}">
+                                            [{{ $item->item->location->identifier }}] {{ $item->item->location->name }}
+                                        </a>
+                                    @else
+                                        &ndash;
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

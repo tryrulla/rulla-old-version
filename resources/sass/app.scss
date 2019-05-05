@@ -5,6 +5,7 @@ body {
 @tailwind base;
 @tailwind components;
 
+@import '~vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 @import "~vue-select/src/scss/vue-select.scss";
 @import 'v-tooltip.scss';
 @import 'transition.scss';

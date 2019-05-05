@@ -5,6 +5,8 @@ use App\Models\Items\ItemStockBalance;
 use App\Models\Items\ItemType;
 use App\Models\Location;
 use App\Models\Reservations\Reservation;
+use App\Models\Reservations\ReservedItem;
+use App\Models\Reservations\ReservedItemStatus;
 use App\Models\User;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
@@ -63,5 +65,14 @@ class DatabaseSeeder extends Seeder
         });
 
         factory(Reservation::class, 15)->create();
+
+        $reservation = Reservation::first();
+        for ($i = 1; $i < 14; $i++) {
+            ReservedItem::create([
+                'item_id' => $i,
+                'reservation_id' => $reservation->id,
+                'status' => ReservedItemStatus::inStock(),
+            ]);
+        }
     }
 }

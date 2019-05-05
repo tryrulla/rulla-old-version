@@ -19,24 +19,25 @@
 
             <table class="table" v-else>
                 <tr class="header">
-                    <th class="w-1/6">
+                    <th class="w-1/5">
                         Identifier
                     </th>
-                    <th class="w-1/6">
+                    <th class="w-1/5">
                         Status
                     </th>
-                    <th class="w-1/6">
+
+                    <th class="w-1/5">
                         Author
                     </th>
-                    <th class="w-1/6">
+
+                    <th class="w-1/5">
                         Starts at
                     </th>
-                    <th class="w-1/6">
+                    <th class="w-1/5">
                         Ends at
                     </th>
-                    <th class="w-1/6">
 
-                    </th>
+                    <th></th>
                 </tr>
                 <tr v-for="row in data.data">
                     <td class="font-semibold">
