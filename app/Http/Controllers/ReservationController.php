@@ -139,6 +139,7 @@ class ReservationController extends Controller
      * @param Request $request
      * @param Reservation $reservation
      * @return Reservation
+     * @throws Exception
      */
     public function update(Request $request, Reservation $reservation)
     {
@@ -153,6 +154,41 @@ class ReservationController extends Controller
             $reservation->update($request->validate([
                 'cancelled' => 'required|boolean',
             ]));
+        }
+
+        if ($request->has('add-items')) {
+            if (!$status->isAwaitingApproval() && !$status->isPlanned()) {
+                return abort(400, 'Invalid state');
+            }
+
+            DB::beginTransaction();
+
+            try {
+                collect($request->get('add-items', []))
+                    ->map(function ($string) {
+                        return intval($string);
+                    })
+                    ->map(function ($id) {
+                        return ItemInstance::find($id);
+                    })
+                    ->filter(function ($item) use($reservation) {
+                        return $reservation->items->filter(function ($reservedItem) use ($item) {
+                            return $reservedItem->id === $item->id;
+                        })->count() === 0;
+                    })
+                    ->each(function ($item) use ($reservation) {
+                        ReservedItem::create([
+                            'reservation_id' => $reservation->id,
+                            'item_id' => $item->id,
+                            'status' => ReservedItemStatus::inStock(),
+                        ]);
+                    });
+            } catch(Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+
+            DB::commit();
         }
 
         if ($request->has('read-out')) {

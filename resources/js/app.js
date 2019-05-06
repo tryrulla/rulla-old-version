@@ -11,11 +11,11 @@ import NewReservationItemSelector from './components/NewReservationItemSelector.
 import LocationItemList from './components/location-item-list/LocationItemList.vue';
 import ItemStockBalance from './components/item-stock-balance/ItemStockBalance.vue';
 import HiddenInputSearchSelector from './components/HiddenInputSearchSelector.vue';
+import ReservationPage from './components/reservation-page/ReservationPage.vue';
 import ItemTypeInstances from './components/ItemTypeInstances.vue';
 import EditableTextField from './components/EditableTextField.vue';
 import ReservationStatus from './components/ReservationStatus.vue';
 import ItemInstanceList from './components/ItemInstanceList.vue';
-import ReservationPage from './components/ReservationPage.vue';
 import ReservationList from './components/ReservationList.vue';
 import EditableSelect from './components/EditableSelect.vue';
 import DateTimePicker from './components/DateTimePicker.vue';

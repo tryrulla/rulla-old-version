@@ -14,6 +14,7 @@
             <reservation-page
                 :data="{{ json_encode($reservation) }}"
                 update-url="{{ route('api.reservations.update', $reservation) }}"
+                item-url="{{ route('api.instances.index', ['all' => true]) }}"
             ></reservation-page>
 
         <!-- <div class="md:flex">

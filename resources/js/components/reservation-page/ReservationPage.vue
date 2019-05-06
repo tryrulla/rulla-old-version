@@ -48,6 +48,12 @@
                                     </button>
                                 </div>
 
+                                <div v-if="reservation.status === 'rejected' || reservation.status === 'planned'">
+                                    <button @click="() => update({approval_status: 'awaiting'})" class="text-blue-800 hover:underline">
+                                        un-{{ reservation.status === 'rejected' ? 'reject' : 'accept' }}
+                                    </button>
+                                </div>
+
                                 <div v-if="canCancel">
                                     <button @click="() => update({cancelled: true})" class="text-blue-800 hover:underline">
                                         cancel
@@ -146,9 +152,16 @@
             <div class="md:w-1/2 p-4">
                 <table class="table">
                     <tr class="header">
-                        <th colspan="5">
+                        <th colspan="3">
                             Reserved items
                         </th>
+
+                        <td colspan="2" class="text-right text-xs">
+                            <add-items-button v-if="reservation.status === 'awaitingApproval' || reservation.status === 'planned'"
+                                :save="update"
+                                :item-url="itemUrl"
+                            ></add-items-button>
+                        </td>
                     </tr>
 
                     <tr class="text-sm">
@@ -191,8 +204,8 @@
                             </a>
 
                             <span v-else class="text-gray-700">
-                            &ndash;
-                        </span>
+                                &ndash;
+                            </span>
                         </td>
 
                         <td>
@@ -201,8 +214,8 @@
                             </a>
 
                             <span v-else class="text-gray-700">
-                            &ndash;
-                        </span>
+                                &ndash;
+                            </span>
                         </td>
 
                         <td class="whitespace-no-wrap text-right">
@@ -226,13 +239,18 @@
 </template>
 
 <script>
-    import {dateDiff} from '../utilities';
+    import {dateDiff} from '../../utilities';
+    import AddItemsButton from './AddItemsButton.vue';
 
     export default {
         props: [
             'data',
             'updateUrl',
+            'itemUrl',
         ],
+        components: {
+            AddItemsButton,
+        },
         data() {
             return {
                 reservation: this.data || [],
