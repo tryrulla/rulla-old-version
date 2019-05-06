@@ -5,8 +5,10 @@ namespace App\Models\Items;
 use App\Models\Location;
 use App\Models\Traits\HasFormattedIdentifier;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class ItemInstance extends Model
+class ItemInstance extends Model implements Searchable
 {
     use HasFormattedIdentifier;
 
@@ -32,5 +34,14 @@ class ItemInstance extends Model
     public function location()
     {
         return $this->belongsTo(Location::class, 'location_id', 'id');
+    }
+
+    public function getSearchResult(): SearchResult
+    {
+        return new SearchResult(
+            $this,
+            $this->identifier . (strlen($this->label) > 0 ? ': ' . $this->label : ''),
+            $this->view_url
+        );
     }
 }

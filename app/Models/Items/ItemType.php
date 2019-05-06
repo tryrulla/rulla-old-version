@@ -5,8 +5,10 @@ namespace App\Models\Items;
 use App\Models\Traits\HasFormattedIdentifier;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class ItemType extends Model
+class ItemType extends Model implements Searchable
 {
     use HasFormattedIdentifier;
 
@@ -54,5 +56,14 @@ class ItemType extends Model
         return $query->whereHas('stockBalances', function ($stockQuery) use ($locationId) {
             return $stockQuery->where('location_id', '=', $locationId);
         });
+    }
+
+    public function getSearchResult(): SearchResult
+    {
+        return new SearchResult(
+            $this,
+            $this->identifier . (strlen($this->name) > 0 ? ': ' . $this->name : ''),
+            $this->view_url
+        );
     }
 }

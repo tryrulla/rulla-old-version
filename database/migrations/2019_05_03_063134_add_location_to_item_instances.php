@@ -15,6 +15,7 @@ class AddLocationToItemInstances extends Migration
     {
         Schema::table('item_instances', function (Blueprint $table) {
             $table->bigInteger('location_id')
+                ->unsigned()
                 ->nullable();
 
             $table->foreign('location_id')

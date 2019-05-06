@@ -16,13 +16,13 @@ class CreateReservedItemsTable extends Migration
         Schema::create('reserved_items', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->bigInteger('reservation_id');
+            $table->bigInteger('reservation_id')->unsigned();
             $table->foreign('reservation_id')
                 ->references('id')
                 ->on('reservations')
                 ->onDelete('cascade');
 
-            $table->bigInteger('item_id');
+            $table->bigInteger('item_id')->unsigned();
             $table->foreign('item_id')
                 ->references('id')
                 ->on('item_instances')

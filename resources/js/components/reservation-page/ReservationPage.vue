@@ -220,7 +220,7 @@
 
                         <td class="whitespace-no-wrap text-right">
                             <button @click="() => readOut(item.item_id)"
-                                    v-if="item.status === 'inStock' && canModifyItemStatus"
+                                    v-if="item.status !== 'out' && canModifyItemStatus"
                                     class="text-blue-800 hover:underline">
                                 read out
                             </button>

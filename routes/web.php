@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::view('/', 'welcome')
         ->name('home');
 
+    Route::get('search', 'SearchController')
+        ->name('search');
+
     Route::get('types', 'ItemTypeController@index')
         ->name('types.index');
 

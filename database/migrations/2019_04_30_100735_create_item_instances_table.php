@@ -17,7 +17,7 @@ class CreateItemInstancesTable extends Migration
             $table->bigIncrements('id');
             $table->string('label')->nullable();
 
-            $table->bigInteger('type_id')->nullable();
+            $table->bigInteger('type_id')->unsigned()->nullable();
             $table->foreign('type_id')
                 ->references('id')
                 ->on('item_types');

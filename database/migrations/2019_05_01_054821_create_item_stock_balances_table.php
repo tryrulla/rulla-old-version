@@ -17,12 +17,12 @@ class CreateItemStockBalancesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('amount');
 
-            $table->bigInteger('type_id')->nullable();
+            $table->bigInteger('type_id')->unsigned()->nullable();
             $table->foreign('type_id')
                 ->references('id')
                 ->on('item_types');
 
-            $table->bigInteger('location_id')->nullable();
+            $table->bigInteger('location_id')->unsigned()->nullable();
             $table->foreign('location_id')
                 ->references('id')
                 ->on('locations');

@@ -198,7 +198,6 @@ class ReservationController extends Controller
 
             $amount = $reservation->items()
                 ->whereIn('item_id', $request->get('read-out', []))
-                ->where('status', ReservedItemStatus::inStock())
                 ->update([
                     'status' => ReservedItemStatus::out(),
                 ]);
