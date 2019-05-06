@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="value.length > 0" class="group rounded">
+        <div v-if="(editing ? ogValue : value).length > 0" class="group rounded">
             <span @dblclick="openEditor">{{ editing ? ogValue : value }}</span>
             <button class="text-gray-600 text-xs hidden group-hover:inline" @click="openEditor">
                 <i class="fas fa-pen"></i>

@@ -12,3 +12,9 @@ export const formatDate = (date, outputFormat = 'Y-MM-DD kk:mm', inputTimeZone =
         .tz(moment.tz.guess())
         .format(outputFormat);
 };
+
+export const dateDiff = (firstDate, secondDate, inputTimeZone = 'UTC') => {
+    const first = moment.tz(firstDate, inputTimeZone);
+    const second = moment.tz(secondDate, inputTimeZone);
+    return first.from(second, true);
+};

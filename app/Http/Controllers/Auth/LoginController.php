@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -20,12 +22,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -35,5 +32,27 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function authenticated(Request $request, User $user)
+    {
+        session()->flash('status', 'Welcome back, ' . $user->username . '!');
+    }
+
+    protected function loggedOut(Request $request)
+    {
+        return redirect($this->redirectTo);
+    }
+
+    public function username()
+    {
+        // support authentication with both username and email
+
+        $identity = request()->get('identity');
+        $fieldName = filter_var($identity, FILTER_VALIDATE_EMAIL)
+            ? 'email' : 'username';
+
+        request()->merge([$fieldName => $identity]);
+        return $fieldName;
     }
 }

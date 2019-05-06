@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Items\ItemStockType;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Validation\Rule;
+use Spatie\QueryBuilder\Filter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class LocationController extends Controller
 {
@@ -23,11 +23,16 @@ class LocationController extends Controller
 
     public function jsonIndex(Request $request)
     {
-        if ($request->has('all')) {
-            return Location::all();
-        }
+        $query = QueryBuilder::for(Location::class)
+            ->allowedFilters([
+                Filter::exact('id'),
+                'name',
+            ])
+            ->with('stock');
 
-        return Location::paginate(25);
+        return $request->has('all')
+            ? $query->get()
+            : $query->paginate(25);
     }
 
     /**

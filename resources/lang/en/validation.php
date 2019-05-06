@@ -144,6 +144,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'starts_at' => 'start date',
+        'ends_at' => 'end date',
+    ],
 
 ];
