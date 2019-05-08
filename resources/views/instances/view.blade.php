@@ -10,9 +10,9 @@
             </h1>
         </div>
 
-        <div class="p-4">
+        <div>
             <div class="md:flex">
-                <div class="md:w-1/2">
+                <div class="md:w-1/2 p-4">
                     <table class="table">
                         <tr>
                             <th class="w-1/4">
@@ -87,7 +87,9 @@
                     </table>
                 </div>
 
-                <div class="md:w-1/2"></div>
+                <div class="md:w-1/2 p-4">
+                    {{ json_encode($instance->faults) }}
+                </div>
             </div>
         </div>
     </div>
