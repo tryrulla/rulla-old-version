@@ -22,13 +22,11 @@ class CreateItemFaultsTable extends Migration
                 ->on('item_instances')
                 ->onDelete('cascade');
 
-            $table->integer('priority')
-                ->default(0);
-
+            $table->string('priority');
             $table->string('status');
 
-            $table->string('header');
-            $table->string('body');
+            $table->string('name');
+            $table->text('description');
 
             $table->timestamps();
         });

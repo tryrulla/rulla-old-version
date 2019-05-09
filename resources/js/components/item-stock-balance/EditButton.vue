@@ -5,9 +5,9 @@
         </button>
 
         <modal :open="open" @close="open = false">
-            <div class="card w-screen-1/2">
-                <div class="card-header">
-                    <h1>Update Stock Balance</h1>
+            <div class="bg-white shadow rounded-lg w-screen-1/2">
+                <div class="bg-gray-400 p-4 rounded-t flex justify-between">
+                    <h1 class="text-xl text-black font-bold">Update Stock Balance</h1>
                 </div>
 
                 <div class="p-4" v-if="loading">

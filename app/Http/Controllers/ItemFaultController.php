@@ -41,21 +41,21 @@ class ItemFaultController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Items\Fault\ItemFault  $itemFault
+     * @param  \App\Models\Items\Fault\ItemFault  $fault
      * @return \Illuminate\Http\Response
      */
-    public function show(ItemFault $itemFault)
+    public function show(ItemFault $fault)
     {
-        //
+        return view('faults.view', ['fault' => $fault]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Items\Fault\ItemFault  $itemFault
+     * @param  \App\Models\Items\Fault\ItemFault  $fault
      * @return \Illuminate\Http\Response
      */
-    public function edit(ItemFault $itemFault)
+    public function edit(ItemFault $fault)
     {
         //
     }
@@ -64,10 +64,10 @@ class ItemFaultController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Items\Fault\ItemFault  $itemFault
+     * @param  \App\Models\Items\Fault\ItemFault  $fault
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ItemFault $itemFault)
+    public function update(Request $request, ItemFault $fault)
     {
         //
     }
@@ -75,10 +75,10 @@ class ItemFaultController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Items\Fault\ItemFault  $itemFault
+     * @param  \App\Models\Items\Fault\ItemFault  $fault
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ItemFault $itemFault)
+    public function destroy(ItemFault $fault)
     {
         //
     }

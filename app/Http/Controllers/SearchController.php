@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Items\Fault\ItemFault;
 use App\Models\Items\ItemInstance;
 use App\Models\Items\ItemType;
 use App\Models\Location;
@@ -68,6 +69,13 @@ class SearchController extends Controller
                     }
 
                     break;
+                case 'F':
+                    $fault = ItemFault::find($id);
+
+                    if ($fault) {
+                        return redirect()
+                            ->route('faults.view', $fault);
+                    }
             }
         }
 

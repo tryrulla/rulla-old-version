@@ -16,12 +16,12 @@
     }
 
     i {
-        @apply mr-3 text-white text-center m-auto;
+        @apply mr-3 text-gray-800 text-center m-auto;
         grid-column: 1;
     }
 
     span {
-        @apply text-gray-300 m-auto w-full;
+        @apply text-black m-auto w-full;
         grid-column: 2;
     }
 }

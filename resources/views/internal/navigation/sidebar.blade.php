@@ -1,5 +1,5 @@
-<div class="flex-none w-full md:max-w-xs bg-gray-800 text-white">
-    <div class="px-4 h-16 bg-black text-xl font-mono flex items-center">
+<div class="flex-none w-full md:max-w-xs text-black bg-gray-300">
+    <div class="px-4 h-16 bg-gray-400 text-xl font-mono flex items-center">
         <a href="{{ route('home') }}">
             Rulla
         </a>

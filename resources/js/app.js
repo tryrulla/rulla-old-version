@@ -12,6 +12,9 @@ import LocationItemList from './components/location-item-list/LocationItemList.v
 import ItemStockBalance from './components/item-stock-balance/ItemStockBalance.vue';
 import HiddenInputSearchSelector from './components/HiddenInputSearchSelector.vue';
 import ReservationPage from './components/reservation-page/ReservationPage.vue';
+import ItemInstanceFaults from './components/faults/ItemInstanceFaults.vue';
+import ItemFaultPriority from './components/faults/ItemFaultPriority.vue';
+import ItemFaultStatus from './components/faults/ItemFaultStatus.vue';
 import ItemTypeInstances from './components/ItemTypeInstances.vue';
 import EditableTextField from './components/EditableTextField.vue';
 import ReservationStatus from './components/ReservationStatus.vue';
@@ -40,12 +43,15 @@ Vue.use(VTooltip);
 
 Vue.component('new-reservation-item-selector', NewReservationItemSelector);
 Vue.component('hidden-input-search-selector', HiddenInputSearchSelector);
+Vue.component('item-instance-faults', ItemInstanceFaults);
 Vue.component('item-type-instances', ItemTypeInstances);
 Vue.component('editable-text-field', EditableTextField);
+Vue.component('item-fault-priority', ItemFaultPriority);
 Vue.component('reservation-status', ReservationStatus);
 Vue.component('location-item-list', LocationItemList);
 Vue.component('item-stock-balance', ItemStockBalance);
 Vue.component('item-instance-list', ItemInstanceList);
+Vue.component('item-fault-status', ItemFaultStatus);
 Vue.component('reservation-page', ReservationPage);
 Vue.component('reservation-list', ReservationList);
 Vue.component('date-time-picker', DateTimePicker);

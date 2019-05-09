@@ -11,15 +11,11 @@ body {
 @import 'transition.scss';
 @import 'sidebar.scss';
 
-.card {
-    @apply bg-white shadow rounded-lg;
-}
-
 .card-header {
-    @apply bg-gray-400 px-4 py-2 rounded-t flex justify-between;
+    @apply pb-4;
 
     h1 {
-        @apply text-xl text-black font-bold;
+        @apply text-2xl text-black font-bold;
     }
 }
 
@@ -37,6 +33,10 @@ body {
     th, td {
         @apply align-top;
         padding: 3px;
+    }
+
+    &.columned tr:not(.header) th {
+        @apply text-gray-700 font-normal;
     }
 }
 
@@ -57,6 +57,14 @@ body {
 
     &:hover {
         @apply bg-gray-100;
+    }
+}
+
+details {
+    @apply mb-2;
+
+    summary {
+        @apply text-black font-bold;
     }
 }
 
