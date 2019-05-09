@@ -80,17 +80,6 @@ class ItemFaultController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Items\Fault\ItemFault  $fault
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ItemFault $fault)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -99,7 +88,15 @@ class ItemFaultController extends Controller
      */
     public function update(Request $request, ItemFault $fault)
     {
-        //
+        $fault->update($request->validate([
+            'name' => 'nullable|min:3',
+            'description' => 'nullable',
+            'status' => ['nullable', Rule::in(ItemFaultStatus::getValues())],
+            'priority' => ['nullable', Rule::in(ItemFaultPriority::getValues())]
+        ]));
+
+        return response($fault);
+
     }
 
     /**

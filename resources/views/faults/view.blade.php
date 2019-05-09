@@ -68,14 +68,42 @@
                         <tr>
                             <th class="w-1/4">Status</th>
                             <td>
-                                <item-fault-status status="{{ $fault->status }}"></item-fault-status>
+                                <editable-select
+                                    url="{{ route('api.faults.update', $fault) }}"
+                                    name="Status"
+                                    id="status"
+                                    initial-value="{{ $fault->status }}"
+                                    :options="{{ json_encode(\App\Models\Items\Fault\ItemFaultStatus::getValues()) }}"
+                                    :get-value="item => item"
+                                    :label="item => item"
+                                    :refresh="true"
+                                >
+                                    <!--suppress XmlUnboundNsPrefix -->
+                                    <template v-slot:label="selected">
+                                        <item-fault-status :status="selected.selected"></item-fault-status>
+                                    </template>
+                                </editable-select>
                             </td>
                         </tr>
 
                         <tr>
                             <th>Priority</th>
                             <td>
-                                <item-fault-priority priority="{{ $fault->priority }}"></item-fault-priority>
+                                <editable-select
+                                    url="{{ route('api.faults.update', $fault) }}"
+                                    name="Priority"
+                                    id="priority"
+                                    initial-value="{{ $fault->priority }}"
+                                    :options="{{ json_encode(\App\Models\Items\Fault\ItemFaultPriority::getValues()) }}"
+                                    :get-value="item => item"
+                                    :label="item => item"
+                                    :refresh="true"
+                                >
+                                    <!--suppress XmlUnboundNsPrefix -->
+                                    <template v-slot:label="selected">
+                                        <item-fault-priority :priority="selected.selected"></item-fault-priority>
+                                    </template>
+                                </editable-select>
                             </td>
                         </tr>
                     </table>

@@ -2,7 +2,9 @@
     <div v-if="loaded">
         <div class="group" v-if="selected">
             <a :href="link" v-if="link" @dblclick="openEditor">{{ label(selected) }}</a>
-            <span @dblclick="openEditor" v-else>{{ label(selected) }}</span>
+            <span @dblclick="openEditor" v-else>
+                <slot name="label" v-bind:selected="selected">{{ label(selected) }}</slot>
+            </span>
 
             <button class="text-gray-600 text-xs hidden group-hover:inline" @click="openEditor">
                 <i class="fas fa-pen"></i>

@@ -33,7 +33,6 @@
                 }
             },
             getColors(name) {
-                console.log({name});
                 switch (name) {
                     case 'highest':
                         return ['bg-red-300', 'border', 'border-red-500', 'text-red-900'];
