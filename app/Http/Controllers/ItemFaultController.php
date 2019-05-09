@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Items\Fault\ItemFault;
+use App\Models\Items\Fault\ItemFaultPriority;
+use App\Models\Items\Fault\ItemFaultStatus;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ItemFaultController extends Controller
 {
@@ -24,7 +27,7 @@ class ItemFaultController extends Controller
      */
     public function create()
     {
-        //
+        return view('faults.new');
     }
 
     /**
@@ -35,7 +38,34 @@ class ItemFaultController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = array_merge(
+            [
+                'status' => ItemFaultStatus::open(),
+                'priority' => ItemFaultPriority::medium(),
+                'description' => '',
+            ],
+            $request->validate([
+                'name' => 'required|min:3',
+                'item_id' => 'required|exists:item_instances,id',
+                'description' => 'nullable',
+                'status' => ['nullable', Rule::in(ItemFaultStatus::getValues())],
+                'priority' => ['nullable', Rule::in(ItemFaultPriority::getValues())]
+            ])
+        );
+
+        $fault = ItemFault::create($attributes);
+
+        if ($request->get('submit', 'normal') === 'another') {
+            session()->flash('status-color', 'green');
+            session()->flash('status', "Item fault $fault->identifier was created.");
+
+            $request->flashOnly('item_id');
+
+            return redirect()
+                ->route('faults.create');
+        }
+
+        return redirect()->route('faults.view',  $fault);
     }
 
     /**

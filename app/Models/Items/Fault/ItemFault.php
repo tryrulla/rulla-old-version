@@ -6,8 +6,10 @@ use App\Models\Items\ItemInstance;
 use App\Models\Traits\HasFormattedIdentifier;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Enum\Laravel\HasEnums;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class ItemFault extends Model
+class ItemFault extends Model implements Searchable
 {
     use HasFormattedIdentifier, HasEnums;
 
@@ -34,4 +36,14 @@ class ItemFault extends Model
     {
         return $this->belongsTo(ItemInstance::class, 'item_id', 'id');
     }
+
+    public function getSearchResult(): SearchResult
+    {
+        return new SearchResult(
+            $this,
+            $this->identifier . ': ' . $this->name,
+            $this->view_url
+        );
+    }
+
 }

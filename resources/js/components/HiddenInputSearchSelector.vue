@@ -9,7 +9,7 @@
 
     <div v-else>
         <v-select v-model="selected"
-              :getOptionLabel="it => `[${it.identifier}] ${it.name}`"
+              :getOptionLabel="label"
               :reduce="it => it.id"
               :options="data"></v-select>
 
@@ -24,7 +24,7 @@
                 loading: true,
                 data: null,
                 error: null,
-                selected: null,
+                selected: this.value || null,
             };
         },
         mounted() {
@@ -40,6 +40,14 @@
                     this.error = error.toString();
                 });
         },
-        props: ['url', 'name']
+        props: {
+            url: String,
+            name: String,
+            value: Number,
+            label: {
+                type: Function,
+                default: it => `[${it.identifier}] ${it.name}`,
+            },
+        },
     }
 </script>

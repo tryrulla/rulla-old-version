@@ -3,9 +3,9 @@
 @section('title', $reservation->identifier)
 
 @section('content')
-    <div class="bg-white shadow rounded-lg">
-        <div class="bg-gray-400 p-4 rounded-t flex justify-between">
-            <h1 class="text-xl text-black font-bold">
+    <div>
+        <div class="card-header">
+            <h1>
                 {{ $reservation->identifier }}
             </h1>
         </div>

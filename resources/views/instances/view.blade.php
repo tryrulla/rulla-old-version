@@ -18,6 +18,12 @@
             </h1>
         </div>
 
+        <div class="mb-4">
+            <a href="{{ route('faults.create', ['item_id' => $instance->id]) }}" class="button-gray">
+                Add fault
+            </a>
+        </div>
+
         <details open>
             <summary>Basic details</summary>
 

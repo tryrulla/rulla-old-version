@@ -1,169 +1,180 @@
 <template>
     <div>
-        <div class="p-4 pb-0" v-if="false">
-            <b>Actions: </b>
-        </div>
+        <details open>
+            <summary>Basic Details</summary>
 
-        <div class="md:flex">
-            <div class="md:w-1/2 p-4">
-                <table class="table">
-                    <tr>
-                        <th class="w-1/4">
-                            Row type
-                        </th>
+            <div class="md:flex">
+                <div class="md:w-1/2">
+                    <table class="table columned">
+                        <tr>
+                            <th class="w-1/4">
+                                Row type
+                            </th>
 
-                        <td class="w-3/4">
-                            Reservation
-                        </td>
-                    </tr>
+                            <td class="w-3/4">
+                                Reservation
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <th>
-                            Identifier
-                        </th>
+                        <tr>
+                            <th>
+                                Identifier
+                            </th>
 
-                        <td>
-                            {{ reservation.identifier }}
-                        </td>
-                    </tr>
+                            <td>
+                                {{ reservation.identifier }}
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <th>
-                            Status
-                        </th>
+                        <tr>
+                            <th>
+                                Status
+                            </th>
 
-                        <td>
-                            <reservation-status
-                                :status="reservation.status"
-                            ></reservation-status>
+                            <td>
+                                <reservation-status
+                                    :status="reservation.status"
+                                ></reservation-status>
 
-                            <div class="my-1">
-                                <div v-if="reservation.status === 'awaitingApproval'">
-                                    <button @click="() => update({approval_status: 'approved'})" class="text-blue-800 hover:underline">
-                                        approve
-                                    </button>
+                                <div class="my-1">
+                                    <div v-if="reservation.status === 'awaitingApproval'">
+                                        <button @click="() => update({approval_status: 'approved'})" class="text-blue-800 hover:underline">
+                                            approve
+                                        </button>
 
-                                    <button @click="() => update({approval_status: 'rejected'})" class="text-blue-800 hover:underline">
-                                        reject
-                                    </button>
+                                        <button @click="() => update({approval_status: 'rejected'})" class="text-blue-800 hover:underline">
+                                            reject
+                                        </button>
+                                    </div>
+
+                                    <div v-if="reservation.status === 'rejected' || reservation.status === 'planned'">
+                                        <button @click="() => update({approval_status: 'awaiting'})" class="text-blue-800 hover:underline">
+                                            un-{{ reservation.status === 'rejected' ? 'reject' : 'accept' }}
+                                        </button>
+                                    </div>
+
+                                    <div v-if="canCancel">
+                                        <button @click="() => update({cancelled: true})" class="text-blue-800 hover:underline">
+                                            cancel
+                                        </button>
+                                    </div>
+
+                                    <div v-if="reservation.status === 'cancelled'">
+                                        <button @click="() => update({cancelled: false})" class="text-blue-800 hover:underline">
+                                            un-cancel
+                                        </button>
+                                    </div>
                                 </div>
+                            </td>
+                        </tr>
 
-                                <div v-if="reservation.status === 'rejected' || reservation.status === 'planned'">
-                                    <button @click="() => update({approval_status: 'awaiting'})" class="text-blue-800 hover:underline">
-                                        un-{{ reservation.status === 'rejected' ? 'reject' : 'accept' }}
-                                    </button>
-                                </div>
+                    </table>
+                </div>
 
-                                <div v-if="canCancel">
-                                    <button @click="() => update({cancelled: true})" class="text-blue-800 hover:underline">
-                                        cancel
-                                    </button>
-                                </div>
+                <div class="md:w-1/2">
+                    <table class="table columned">
+                        <tr>
+                            <th class="w-1/4">
+                                Start date
+                            </th>
 
-                                <div v-if="reservation.status === 'cancelled'">
-                                    <button @click="() => update({cancelled: false})" class="text-blue-800 hover:underline">
-                                        un-cancel
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                            <td>
+                                <formatted-date :date="reservation.starts_at"></formatted-date>
+                            </td>
+                        </tr>
 
-                    <tr class="mt-2">
-                        <th>
-                            Start date
-                        </th>
+                        <tr>
+                            <th>
+                                End date
+                            </th>
 
-                        <td>
-                            <formatted-date :date="reservation.starts_at"></formatted-date>
-                        </td>
-                    </tr>
+                            <td>
+                                <formatted-date :date="reservation.ends_at"></formatted-date>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <th>
-                            End date
-                        </th>
+                        <tr>
+                            <th>
+                                Duration
+                            </th>
 
-                        <td>
-                            <formatted-date :date="reservation.ends_at"></formatted-date>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>
-                            Duration
-                        </th>
-
-                        <td>
-                            {{ duration }}
-                        </td>
-                    </tr>
-                </table>
-
-                <table class="table mt-4">
-                    <tr class="header">
-                        <th colspan="2">
-                            Author
-                        </th>
-                    </tr>
-
-                    <tr>
-                        <th class="w-1/4">
-                            Identifier
-                        </th>
-
-                        <td class="w-3/4">
-                            {{ reservation.author.identifier }}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>
-                            Name
-                        </th>
-
-                        <td>
-                            {{ reservation.author.name }}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>
-                            Username
-                        </th>
-
-                        <td>
-                            {{ reservation.author.username }}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>
-                            E-mail
-                        </th>
-
-                        <td>
-                            {{ reservation.author.email }}
-                        </td>
-                    </tr>
-                </table>
+                            <td>
+                                {{ duration }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
+        </details>
 
-            <div class="md:w-1/2 p-4">
+        <details open>
+            <summary>Author details</summary>
+
+            <div class="md:flex">
+                <div class="md:w-1/2">
+                    <table class="table columned">
+                        <tr>
+                            <th class="w-1/4">
+                                Identifier
+                            </th>
+
+                            <td class="w-3/4">
+                                {{ reservation.author.identifier }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+
+                            <td>
+                                {{ reservation.author.name }}
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="md:w-1/2">
+                    <table class="table columned">
+                        <tr>
+                            <th class="w-1/4">
+                                Username
+                            </th>
+
+                            <td>
+                                {{ reservation.author.username }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                E-mail
+                            </th>
+
+                            <td>
+                                {{ reservation.author.email }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </details>
+
+        <details open>
+            <summary>
+                Reserved items
+            </summary>
+
+            <add-items-button class="text-xs"
+                              v-if="reservation.status === 'awaitingApproval' || reservation.status === 'planned'"
+                              :save="update"
+                              :item-url="itemUrl"
+            ></add-items-button>
+
+            <div>
                 <table class="table">
-                    <tr class="header">
-                        <th colspan="3">
-                            Reserved items
-                        </th>
-
-                        <td colspan="2" class="text-right text-xs">
-                            <add-items-button v-if="reservation.status === 'awaitingApproval' || reservation.status === 'planned'"
-                                :save="update"
-                                :item-url="itemUrl"
-                            ></add-items-button>
-                        </td>
-                    </tr>
-
                     <tr class="text-sm">
                         <th>
                             Status
@@ -234,7 +245,7 @@
                     </tr>
                 </table>
             </div>
-        </div>
+        </details>
     </div>
 </template>
 

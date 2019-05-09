@@ -83,6 +83,7 @@ class SearchController extends Controller
             ->registerModel(ItemInstance::class, 'label')
             ->registerModel(ItemType::class, 'concat(manufacturer, \' \', model)')
             ->registerModel(Location::class, 'name')
+            ->registerModel(ItemFault::class, 'name', 'description')
             ->search($query);
 
         return view('search.view', ['results' => $searchResults, 'query' => $query]);
