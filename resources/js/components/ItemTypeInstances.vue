@@ -2,12 +2,6 @@
     <div>
         <table class="table">
             <tr class="header">
-                <th colspan="3">
-                    Instance
-                </th>
-            </tr>
-
-            <tr class="text-sm">
                 <th class="w-2/5">Instance</th>
                 <th class="w-2/5">Location</th>
                 <th></th>

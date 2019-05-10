@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="open = true">
+        <button @click="open = true" class="button-gray">
             add
         </button>
 

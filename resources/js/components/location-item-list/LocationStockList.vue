@@ -1,13 +1,8 @@
 <template>
-    <div class="mt-4" v-if="data.length > 0">
+    <details open class="mt-4" v-if="data.length > 0">
+        <summary>Stock located here</summary>
         <table class="table">
             <tr class="header">
-                <th colspan="4">
-                    Stock located here
-                </th>
-            </tr>
-
-            <tr class="text-sm">
                 <th class="w-2/5">Item</th>
                 <th class="w-1/5">Balance</th>
                 <th class="w-1/5">Last updated</th>
@@ -36,7 +31,7 @@
                 </td>
             </tr>
         </table>
-    </div>
+    </details>
 </template>
 
 <script>

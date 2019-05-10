@@ -1,15 +1,15 @@
 <template>
     <div>
         <div class="card-header">
-            <h1>
-                All types
-            </h1>
-
             <div class="text-xs">
                 <a :href="newUrl" class="text-blue-800 underline">
                     new
                 </a>
             </div>
+
+            <h1>
+                All types
+            </h1>
         </div>
 
         <div v-if="data">

@@ -167,7 +167,7 @@
                 Reserved items
             </summary>
 
-            <add-items-button class="text-xs"
+            <add-items-button
                               v-if="reservation.status === 'awaitingApproval' || reservation.status === 'planned'"
                               :save="update"
                               :item-url="itemUrl"
@@ -195,7 +195,7 @@
                         <th></th>
                     </tr>
 
-                    <tr v-for="item in reservation.items">
+                    <tr v-for="item in items">
                         <td class="whitespace-no-wrap">
                             <reservation-status
                                 :item="true"
@@ -252,6 +252,7 @@
 <script>
     import {dateDiff} from '../../utilities';
     import AddItemsButton from './AddItemsButton.vue';
+    import sortBy from 'lodash/sortBy';
 
     export default {
         props: [
@@ -283,6 +284,9 @@
                     'awaitingApproval',
                     'planned'
                 ].includes(this.reservation.status);
+            },
+            items() {
+                return sortBy(this.reservation.items, ['item_id']);
             },
         },
         methods: {

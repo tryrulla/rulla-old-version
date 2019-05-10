@@ -10,7 +10,7 @@
             </h1>
         </div>
 
-        <form class="p-4" method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <div class="md:flex flex-wrap">

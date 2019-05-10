@@ -36,5 +36,14 @@
                 </a>
             </div>
         </div>
+    @else
+        <div class="p-4">
+            <div class="navbar-grid">
+                <a href="{{ route('login') }}">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Log in
+                </a>
+            </div>
+        </div>
     @endauth
 </div>

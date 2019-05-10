@@ -10,7 +10,7 @@
             </h1>
         </div>
 
-        <form action="{{ route('locations.create') }}" method="post" class="p-4">
+        <form action="{{ route('locations.create') }}" method="post">
             @csrf
 
             <div class="text-sm text-gray-700 mb-2">

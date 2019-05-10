@@ -3,18 +3,17 @@
 @section('title', 'Search')
 
 @section('content')
-    <div class="bg-white shadow rounded-lg">
-        <div class="bg-gray-400 p-4 rounded-t flex justify-between">
-            <h1 class="text-xl text-black font-bold">
-                Search for <span class="font-normal">'{{ $query }}'</span>
+    <div>
+        <div class="card-header">
+            <div>
+                Found {{ $results->count() }} result(s) for
+            </div>
+            <h1>
+                {{ $query }}
             </h1>
         </div>
 
-        <div class="p-4">
-            <p>
-                There are {{ $results->count() }} results.
-            </p>
-
+        <div>
             @foreach($results->groupByType() as $type => $modelSearchResults)
                 <h2 class="text-lg mt-2 mb-1">{{ $type }}</h2>
 

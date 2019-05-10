@@ -1,6 +1,6 @@
 <template>
-    <div class="card">
-        <div>
+    <div>
+        <div class="card-header">
             <div class="text-xs">
                 <a :href="newUrl" class="text-blue-800 underline">
                     new
