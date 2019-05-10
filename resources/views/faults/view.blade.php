@@ -114,7 +114,13 @@
         <details open>
             <summary>Description</summary>
 
-            <div class="whitespace-pre-line">{{ $fault->description }}</div>
+            <editable-text-field
+                url="{{ route('api.faults.update', $fault) }}"
+                name="Description"
+                id="description"
+                :initial-value="{{ json_encode($fault->description) }}"
+                :large="true"
+            ></editable-text-field>
         </details>
     </div>
 @endsection

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="(editing ? ogValue : value).length > 0" class="group rounded">
+        <div v-if="(editing ? ogValue : value).length > 0" class="group rounded" :class="large ? ['whitespace-pre-line'] : []">
             <span @dblclick="openEditor">{{ editing ? ogValue : value }}</span>
             <button class="text-gray-600 text-xs hidden group-hover:inline" @click="openEditor">
                 <i class="fas fa-pen"></i>
@@ -23,7 +23,10 @@
                             {{ name }}
                         </div>
                         <div class="w-2/3">
-                            <input class="input-text" type="text" v-model="value" v-autofocus
+                            <textarea class="input-text" type="text" v-model="value"
+                                      v-autofocus v-if="large" rows="15"></textarea>
+
+                            <input class="input-text" type="text" v-model="value" v-autofocus v-else
                                    @keyup.enter="save" @keyup.esc="cancel" />
                         </div>
                     </div>
@@ -50,10 +53,15 @@
             url: String,
             initialValue: String,
 
+            large: {
+                type: Boolean,
+                default: false
+            },
+
             refresh: {
                 type: Boolean,
                 default: false
-            }
+            },
         },
         data() {
             return {
