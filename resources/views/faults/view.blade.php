@@ -122,5 +122,7 @@
                 :large="true"
             ></editable-text-field>
         </details>
+
+        @include('components.comments', ['it' => $fault, 'commentUrl' => route('faults.comment', $fault)])
     </div>
 @endsection

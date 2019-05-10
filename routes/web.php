@@ -78,4 +78,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('faults/{fault}', 'ItemFaultController@show')
         ->name('faults.view');
+
+    Route::post('faults/{fault}/comment', 'ItemFaultController@comment')
+        ->name('faults.comment');
 });

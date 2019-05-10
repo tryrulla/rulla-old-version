@@ -99,6 +99,12 @@ class ItemFaultController extends Controller
 
     }
 
+    public function comment(Request $request, ItemFault $fault) {
+        $request->validate(['comment' => 'required|min:2']);
+        $fault->comment($request->get('comment'));
+        return back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *

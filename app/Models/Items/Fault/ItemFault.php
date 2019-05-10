@@ -4,6 +4,7 @@ namespace App\Models\Items\Fault;
 
 use App\Models\Items\ItemInstance;
 use App\Models\Traits\HasFormattedIdentifier;
+use BeyondCode\Comments\Traits\HasComments;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Enum\Laravel\HasEnums;
 use Spatie\Searchable\Searchable;
@@ -11,7 +12,7 @@ use Spatie\Searchable\SearchResult;
 
 class ItemFault extends Model implements Searchable
 {
-    use HasFormattedIdentifier, HasEnums;
+    use HasFormattedIdentifier, HasEnums, HasComments;
 
     protected $guarded = [];
     protected $relations = ['item'];
