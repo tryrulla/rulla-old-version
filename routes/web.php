@@ -67,4 +67,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('reservations/{reservation}', 'ReservationController@show')
         ->name('reservations.view');
+
+    Route::get('faults', 'ItemFaultController@index')
+        ->name('faults.index');
+
+    Route::get('faults/new', 'ItemFaultController@create')
+        ->name('faults.create');
+
+    Route::post('faults/new', 'ItemFaultController@store');
+
+    Route::get('faults/{fault}', 'ItemFaultController@show')
+        ->name('faults.view');
+
+    Route::post('faults/{fault}/comment', 'ItemFaultController@comment')
+        ->name('faults.comment');
 });

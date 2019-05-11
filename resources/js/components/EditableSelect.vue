@@ -2,7 +2,9 @@
     <div v-if="loaded">
         <div class="group" v-if="selected">
             <a :href="link" v-if="link" @dblclick="openEditor">{{ label(selected) }}</a>
-            <span @dblclick="openEditor" v-else>{{ label(selected) }}</span>
+            <span @dblclick="openEditor" v-else>
+                <slot name="label" v-bind:selected="selected">{{ label(selected) }}</slot>
+            </span>
 
             <button class="text-gray-600 text-xs hidden group-hover:inline" @click="openEditor">
                 <i class="fas fa-pen"></i>
@@ -14,9 +16,9 @@
         </div>
 
         <modal :open="editing" @close="editing = false">
-            <div class="card w-screen-1/2">
-                <div class="card-header">
-                    <h1>Change {{ name }}</h1>
+            <div class="bg-white shadow rounded-lg w-screen-1/2">
+                <div class="bg-gray-400 p-4 rounded-t flex justify-between">
+                    <h1 class="text-xl text-black font-bold">Change {{ name }}</h1>
                 </div>
 
                 <div class="p-4 flex">

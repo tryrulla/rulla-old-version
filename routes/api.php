@@ -43,4 +43,7 @@ Route::middleware('auth')->prefix('v1')->group(function () {
 
     Route::put('reservations/{reservation}', 'ReservationController@update')
         ->name('api.reservations.update');
+
+    Route::put('faults/{fault}/update', 'ItemFaultController@update')
+        ->name('api.faults.update');
 });

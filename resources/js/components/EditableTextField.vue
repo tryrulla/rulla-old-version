@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="(editing ? ogValue : value).length > 0" class="group rounded">
+        <div v-if="(editing ? ogValue : value).length > 0" class="group rounded" :class="large ? ['whitespace-pre-line'] : []">
             <span @dblclick="openEditor">{{ editing ? ogValue : value }}</span>
             <button class="text-gray-600 text-xs hidden group-hover:inline" @click="openEditor">
                 <i class="fas fa-pen"></i>
@@ -12,9 +12,9 @@
         </div>
 
         <modal :open="editing" @close="editing = false">
-            <div class="card w-screen-1/2">
-                <div class="card-header">
-                    <h1>Change {{ name }}</h1>
+            <div class="bg-white shadow rounded-lg w-screen-1/2">
+                <div class="bg-gray-400 p-4 rounded-t flex justify-between">
+                    <h1 class="text-xl text-black font-bold">Change {{ name }}</h1>
                 </div>
 
                 <div class="p-4">
@@ -23,7 +23,10 @@
                             {{ name }}
                         </div>
                         <div class="w-2/3">
-                            <input class="input-text" type="text" v-model="value" v-autofocus
+                            <textarea class="input-text" type="text" v-model="value"
+                                      v-autofocus v-if="large" rows="15"></textarea>
+
+                            <input class="input-text" type="text" v-model="value" v-autofocus v-else
                                    @keyup.enter="save" @keyup.esc="cancel" />
                         </div>
                     </div>
@@ -50,10 +53,15 @@
             url: String,
             initialValue: String,
 
+            large: {
+                type: Boolean,
+                default: false
+            },
+
             refresh: {
                 type: Boolean,
                 default: false
-            }
+            },
         },
         data() {
             return {

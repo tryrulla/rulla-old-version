@@ -1,13 +1,8 @@
 <template>
-    <div class="mt-4" v-if="data.length > 0">
+    <details open v-if="data.length > 0">
+        <summary>Instances located here</summary>
         <table class="table">
             <tr class="header">
-                <th colspan="4">
-                    Instances located here
-                </th>
-            </tr>
-
-            <tr class="text-sm">
                 <th class="w-2/5">Instance</th>
                 <th class="w-2/5">Type</th>
                 <th></th>
@@ -37,7 +32,7 @@
                 </td>
             </tr>
         </table>
-    </div>
+    </details>
 </template>
 
 <script>

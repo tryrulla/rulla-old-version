@@ -1,5 +1,5 @@
-<div class="flex-none w-full md:max-w-xs bg-gray-800 text-white">
-    <div class="px-4 h-16 bg-black text-xl font-mono flex items-center">
+<div class="flex-none w-full md:max-w-xs text-black bg-gray-300">
+    <div class="px-4 h-16 bg-gray-400 text-xl font-mono flex items-center">
         <a href="{{ route('home') }}">
             Rulla
         </a>
@@ -33,6 +33,15 @@
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Log out</span>
+                </a>
+            </div>
+        </div>
+    @else
+        <div class="p-4">
+            <div class="navbar-grid">
+                <a href="{{ route('login') }}">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Log in
                 </a>
             </div>
         </div>

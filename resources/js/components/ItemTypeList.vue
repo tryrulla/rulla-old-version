@@ -1,15 +1,15 @@
 <template>
-    <div class="card">
+    <div>
         <div class="card-header">
-            <h1>
-                All types
-            </h1>
-
             <div class="text-xs">
                 <a :href="newUrl" class="text-blue-800 underline">
                     new
                 </a>
             </div>
+
+            <h1>
+                All types
+            </h1>
         </div>
 
         <div v-if="data">
@@ -19,21 +19,19 @@
 
             <table class="table" v-else>
                 <tr class="header">
-                    <th class="w-1/6">
+                    <th>
                         Identifier
                     </th>
-                    <th class="w-2/6">
+                    <th class="w-1/3">
                         Manufacturer
                     </th>
-                    <th class="w-1/6">
+                    <th class="w-1/3">
                         Model
                     </th>
-                    <th class="w-1/6">
+                    <th class="w-1/3">
                         Stock type
                     </th>
-                    <th class="w-1/6">
-
-                    </th>
+                    <th></th>
                 </tr>
                 <tr v-for="row in data.data">
                     <td class="font-semibold">

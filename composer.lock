@@ -4,8 +4,64 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ecdaea671f2a18b9875820392e16312b",
+    "content-hash": "9870d9dc06ba73665d3df51e78854288",
     "packages": [
+        {
+            "name": "beyondcode/laravel-comments",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beyondcode/laravel-comments.git",
+                "reference": "c7d599349d6063860280dafb07e9757106428b76"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beyondcode/laravel-comments/zipball/c7d599349d6063860280dafb07e9757106428b76",
+                "reference": "c7d599349d6063860280dafb07e9757106428b76",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.6.0|~5.7.0|~5.8.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.6",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BeyondCode\\Comments\\CommentsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BeyondCode\\Comments\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "marcel@beyondco.de",
+                    "homepage": "https://beyondcode.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Add comments to your Laravel application",
+            "homepage": "https://github.com/beyondcode/laravel-comments",
+            "keywords": [
+                "beyondcode",
+                "comments",
+                "laravel-comments"
+            ],
+            "time": "2019-02-28T13:36:52+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
@@ -1451,6 +1507,70 @@
                 "spatie"
             ],
             "time": "2019-04-18T08:32:09+00:00"
+        },
+        {
+            "name": "spatie/laravel-enum",
+            "version": "dev-patch-1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/supertassu/laravel-enum.git",
+                "reference": "0f2c63fe71590e25ec1085660b9cb737aee97388"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/supertassu/laravel-enum/zipball/0f2c63fe71590e25ec1085660b9cb737aee97388",
+                "reference": "0f2c63fe71590e25ec1085660b9cb737aee97388",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2",
+                "spatie/enum": "^2.0"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "orchestra/testbench": "^3.8",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Enum\\Laravel\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Spatie\\Enum\\Laravel\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ],
+                "test-coverage": [
+                    "vendor/bin/phpunit --coverage-html coverage"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brent Roose",
+                    "email": "brent@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel enum support",
+            "homepage": "https://github.com/spatie/laravel-enum",
+            "keywords": [
+                "laravel-enum",
+                "spatie"
+            ],
+            "support": {
+                "source": "https://github.com/supertassu/laravel-enum/tree/patch-1"
+            },
+            "time": "2019-05-09T14:43:49+00:00"
         },
         {
             "name": "spatie/laravel-query-builder",
@@ -5753,7 +5873,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "spatie/laravel-enum": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

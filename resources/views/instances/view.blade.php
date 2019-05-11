@@ -5,15 +5,31 @@
 @section('content')
     <div class="card">
         <div class="card-header">
+            <div>
+                <a href="{{ route('instances.index') }}">
+                    Item Instance
+                </a>
+
+                {!! $instance->label ? '/ <b>' . $instance->identifier . '</b>' : '' !!}
+            </div>
+
             <h1>
-                {{ $instance->identifier }}: {{ $instance->label }}
+                {{ $instance->label ? $instance->label : $instance->identifier }}
             </h1>
         </div>
 
-        <div class="p-4">
+        <div class="mb-4">
+            <a href="{{ route('faults.create', ['item_id' => $instance->id]) }}" class="button-gray">
+                Add fault
+            </a>
+        </div>
+
+        <details open>
+            <summary>Basic details</summary>
+
             <div class="md:flex">
                 <div class="md:w-1/2">
-                    <table class="table">
+                    <table class="table columned">
                         <tr>
                             <th class="w-1/4">
                                 Row type
@@ -52,9 +68,13 @@
                                 ></editable-text-field>
                             </td>
                         </tr>
+                    </table>
+                </div>
 
+                <div class="md:w-1/2">
+                    <table class="table columned">
                         <tr>
-                            <th>Type</th>
+                            <th class="w-1/4">Type</th>
                             <td>
                                 <editable-select
                                     url="{{ route('api.instances.update', $instance) }}"
@@ -86,9 +106,15 @@
                         </tr>
                     </table>
                 </div>
-
-                <div class="md:w-1/2"></div>
             </div>
-        </div>
+        </details>
+
+        <details open>
+            <summary>Faults</summary>
+
+            <item-instance-faults
+                :data="{{ json_encode($instance->faults) }}"
+            ></item-instance-faults>
+        </details>
     </div>
 @endsection

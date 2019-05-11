@@ -2,10 +2,9 @@
     <div>
         <table class="table">
             <tr class="header">
-                <th colspan="3">
-                    Stock balance
-                </th>
-
+                <th class="w-2/6">Location</th>
+                <th class="w-1/6">Balance</th>
+                <th class="w-2/6">Last updated</th>
                 <td class="text-right text-xs">
                     <add-button
                         :location-url="suggestionUrl"
@@ -15,17 +14,10 @@
                 </td>
             </tr>
 
-            <tr class="text-sm">
-                <th class="w-2/6">Location</th>
-                <th class="w-1/6">Balance</th>
-                <th class="w-2/6">Last updated</th>
-                <th></th>
-            </tr>
-
-            <tr v-for="row in data">
+            <tr v-for="row in rows">
                 <td>
                     <a :href="row.location.viewUrl">
-                        {{ row.location.name }}
+                        [{{ row.location.identifier}}] {{ row.location.name }}
                     </a>
                 </td>
 
@@ -52,6 +44,7 @@
 
 <script>
     import {formatDate, upsert} from "../../utilities";
+    import sortBy from 'lodash/sortBy';
 
     import AddButton from './AddButton';
     import EditButton from './EditButton';
@@ -75,6 +68,11 @@
             return {
                 data: this.initialData,
             };
+        },
+        computed: {
+            rows() {
+                return sortBy(this.data, 'location_id');
+            },
         },
     }
 </script>

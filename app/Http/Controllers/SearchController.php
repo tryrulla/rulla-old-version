@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Items\Fault\ItemFault;
 use App\Models\Items\ItemInstance;
 use App\Models\Items\ItemType;
 use App\Models\Location;
@@ -68,6 +69,13 @@ class SearchController extends Controller
                     }
 
                     break;
+                case 'F':
+                    $fault = ItemFault::find($id);
+
+                    if ($fault) {
+                        return redirect()
+                            ->route('faults.view', $fault);
+                    }
             }
         }
 
@@ -75,6 +83,7 @@ class SearchController extends Controller
             ->registerModel(ItemInstance::class, 'label')
             ->registerModel(ItemType::class, 'concat(manufacturer, \' \', model)')
             ->registerModel(Location::class, 'name')
+            ->registerModel(ItemFault::class, 'name', 'description')
             ->search($query);
 
         return view('search.view', ['results' => $searchResults, 'query' => $query]);

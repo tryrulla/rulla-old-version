@@ -58,7 +58,7 @@
                             return ['bg-green-200', 'text-green-900'];
                         case 'inStock':
                         default:
-                            return ['bg-gray-200', 'text-gray-900'];
+                            return ['bg-white', 'border', 'border-gray-400', 'text-gray-900'];
                     }
                 }
 
@@ -76,7 +76,7 @@
                         return ['bg-red-300', 'text-red-900'];
                     case 'awaitingApproval':
                     default:
-                        return ['bg-gray-200', 'text-gray-900'];
+                        return ['bg-white', 'border', 'border-gray-400', 'text-gray-900'];
                 }
             },
         },

@@ -1,15 +1,15 @@
 <template>
-    <div class="card">
+    <div>
         <div class="card-header">
-            <h1>
-                All instances
-            </h1>
-
             <div class="text-xs">
                 <a :href="newUrl" class="text-blue-800 underline">
                     new
                 </a>
             </div>
+
+            <h1>
+                All instances
+            </h1>
         </div>
 
         <div v-if="loading" class="w-full h-16 flex">
