@@ -11,11 +11,11 @@
                 <td>
                     <a :href="row.viewUrl">
                         [{{ row.identifier }}]
-                    </a>
 
-                    <span v-if="row.label && row.label.length > 0">
-                        {{ row.label }}
-                    </span>
+                        <span v-if="row.label && row.label.length > 0">
+                            {{ row.label }}
+                        </span>
+                    </a>
                 </td>
 
                 <td>
