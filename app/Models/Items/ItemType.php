@@ -14,12 +14,7 @@ class ItemType extends Model implements Searchable
 
     protected $guarded = [];
     protected $relations = ['stockBalances'];
-    protected $appends = ['identifier', 'viewUrl', 'name'];
-
-    public function getViewUrlAttribute()
-    {
-        return route('types.view', $this);
-    }
+    protected $appends = ['identifier', 'name'];
 
     public function getNameAttribute()
     {

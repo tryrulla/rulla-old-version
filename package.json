@@ -12,6 +12,10 @@
     "devDependencies": {
         "axios": "^0.18",
         "cross-env": "^5.1",
+        "eslint": "^5.16.0",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-plugin-import": "^2.17.2",
+        "eslint-plugin-vue": "^5.2.2",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.5",
         "moment": "^2.24.0",
@@ -27,6 +31,7 @@
         "vue-ctk-date-time-picker": "^2.1.1",
         "vue-router": "^3.0.6",
         "vue-select": "^3.0.2",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "vuex": "^3.1.1"
     }
 }

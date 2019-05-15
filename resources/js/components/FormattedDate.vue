@@ -1,16 +1,22 @@
 <template>
-    <span>{{ formattedDate }}</span>
+  <span>{{ formattedDate }}</span>
 </template>
 
 <script>
-    import {formatDate} from "../utilities";
+import { formatDate } from '../utilities';
 
-    export default {
-        props: ['date'],
-        computed: {
-            formattedDate() {
-                return formatDate(this.date);
-            }
-        }
-    }
+export default {
+  name: 'FormattedDate',
+  props: {
+    date: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    formattedDate() {
+      return formatDate(this.date);
+    },
+  },
+};
 </script>

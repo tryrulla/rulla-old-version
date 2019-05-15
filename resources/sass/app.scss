@@ -80,4 +80,8 @@ details {
     }
 }
 
+.tag {
+    @apply mr-1 inline-block font-bold uppercase p-1 rounded text-xs;
+}
+
 @tailwind utilities;

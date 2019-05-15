@@ -12,36 +12,15 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class ItemInstanceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        $url = route('api.instances.index');
-        return view('instances.index', compact('url'));
-    }
-
-    public function jsonIndex(Request $request)
+    public function index(Request $request)
     {
         $query = QueryBuilder::for(ItemInstance::class)
             ->allowedFilters(Filter::exact('id'), 'label', Filter::exact('location_id'), Filter::exact('type_id'))
-            ->with('type', 'location');
+            ->with('type', 'location', 'faults');
 
         return $request->has('all')
             ? $query->get()
             : $query->paginate(25);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('instances.new');
     }
 
     /**
@@ -60,17 +39,8 @@ class ItemInstanceController extends Controller
 
         $instance = ItemInstance::create($data);
 
-        if ($request->get('submit', 'normal') === 'another') {
-            session()->flash('status-color', 'green');
-            session()->flash('status', "Item instance $instance->identifier was created.");
-
-            $request->flashOnly('location_id');
-
-            return redirect()
-                ->route('instances.create');
-        }
-
-        return redirect()->route('instances.view',  $instance);
+        $instance->loadMissing('type', 'location', 'faults');
+        return response($instance);
     }
 
     /**
@@ -81,7 +51,8 @@ class ItemInstanceController extends Controller
      */
     public function show(ItemInstance $instance)
     {
-        return view('instances.view', compact('instance'));
+        $instance->loadMissing('type', 'location', 'faults');
+        return response($instance);
     }
 
     /**
@@ -99,6 +70,7 @@ class ItemInstanceController extends Controller
             'location_id' => 'nullable|exists:locations,id',
         ]));
 
+        $instance->load('type', 'location', 'faults');
         return response($instance);
     }
 

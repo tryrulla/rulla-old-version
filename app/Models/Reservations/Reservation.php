@@ -13,7 +13,7 @@ class Reservation extends Model
 
     protected $guarded = [];
     protected $relations = ['author', 'items'];
-    protected $appends = ['identifier', 'viewUrl', 'status'];
+    protected $appends = ['identifier', 'status'];
 
     protected $casts = [
         'starts_at' => 'datetime',
@@ -21,11 +21,6 @@ class Reservation extends Model
         'started' => 'boolean',
         'cancelled' => 'boolean',
     ];
-
-    public function getViewUrlAttribute()
-    {
-        return route('reservations.view', $this);
-    }
 
     public function getApprovalStatusAttribute($value): ReservationApprovalStatus
     {

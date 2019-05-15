@@ -15,12 +15,7 @@ class Location extends Model implements Searchable
 
     protected $guarded = [];
     protected $relations = ['stock', 'instances'];
-    protected $appends = ['identifier', 'viewUrl'];
-
-    public function getViewUrlAttribute()
-    {
-        return route('locations.view', $this);
-    }
+    protected $appends = ['identifier'];
 
     public function getIdentifierPrefixLetter(): string
     {
