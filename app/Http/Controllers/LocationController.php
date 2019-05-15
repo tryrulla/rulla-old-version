@@ -58,16 +58,8 @@ class LocationController extends Controller
         ]);
 
         $location = Location::create($data);
-
-        if ($request->get('submit', 'normal') === 'another') {
-            session()->flash('status-color', 'green');
-            session()->flash('status', "Location $location->identifier was created.");
-
-            return redirect()
-                ->route('locations.create');
-        }
-
-        return redirect()->route('locations.view', $location);
+        $location->loadMissing('stock.item', 'instances');
+        return response($location);
     }
 
     /**
@@ -78,7 +70,8 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        return view('locations.view', compact('location'));
+        $location->loadMissing('stock.item', 'instances');
+        return response($location);
     }
 
     /**
@@ -94,6 +87,7 @@ class LocationController extends Controller
             'name' => 'nullable|min:2',
         ]));
 
+        $location->loadMissing('stock.item', 'instances');
         return response($location);
 
     }

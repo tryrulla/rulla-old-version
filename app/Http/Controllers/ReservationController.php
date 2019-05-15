@@ -110,15 +110,8 @@ class ReservationController extends Controller
 
         DB::commit();
 
-        if ($request->get('submit', 'normal') === 'another') {
-            session()->flash('status-color', 'green');
-            session()->flash('status', "Reservation $reservation->identifier was created.");
-
-            return redirect()
-                ->route('reservations.create');
-        }
-
-        return redirect()->route('reservations.view', $reservation);
+        $reservation->load('author', 'items.item.type', 'items.item.location');
+        return response($reservation);
     }
 
     /**
@@ -130,7 +123,7 @@ class ReservationController extends Controller
     public function show(Reservation $reservation)
     {
         $reservation->loadMissing('author', 'items.item.type', 'items.item.location');
-        return view('reservations.view', compact('reservation'));
+        return response($reservation);
     }
 
     /**

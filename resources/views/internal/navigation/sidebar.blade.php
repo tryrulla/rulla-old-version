@@ -8,25 +8,25 @@
     @auth
         <div class="p-4">
             <div class="navbar-grid">
-                <a href="{{ route('types.index') }}">
+                <router-link :to="{ name: 'types.index' }">
                     <i class="fas fa-boxes"></i>
                     <span>Types</span>
-                </a>
+                </router-link>
 
-                <a href="{{ route('instances.index') }}">
+                <router-link :to="{ name: 'instances.index' }">
                     <i class="fas fa-box-open"></i>
                     <span>Instances</span>
-                </a>
+                </router-link>
 
-                <a href="{{ route('locations.index') }}">
+                <router-link :to="{ name: 'locations.index' }">
                     <i class="fas fa-warehouse"></i>
                     <span>Locations</span>
-                </a>
+                </router-link>
 
-                <a href="{{ route('reservations.index') }}">
+                <router-link :to="{ name: 'reservations.index' }">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Reservations</span>
-                </a>
+                </router-link>
             </div>
 
             <div class="navbar-grid mt-4">

@@ -16,7 +16,7 @@ class ItemFault extends Model implements Searchable
 
     protected $guarded = [];
     protected $relations = ['item'];
-    protected $appends = ['identifier', 'viewUrl'];
+    protected $appends = ['identifier'];
 
     protected $enums = [
         'status' => ItemFaultStatus::class,
@@ -26,11 +26,6 @@ class ItemFault extends Model implements Searchable
     public function getIdentifierPrefixLetter(): string
     {
         return 'F';
-    }
-
-    public function getViewUrlAttribute()
-    {
-        return route('faults.view', $this);
     }
 
     public function item()

@@ -14,8 +14,18 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth')->prefix('v1')->group(function () {
-    Route::get('types', 'ItemTypeController@jsonIndex')
+    Route::get('', function () {
+        return response()->json(['message' => 'Hello, world!']);
+    })->name('api.base');
+
+    Route::get('types', 'ItemTypeController@index')
         ->name('api.types.index');
+
+    Route::post('types', 'ItemTypeController@store')
+        ->name('api.types.create');
+
+    Route::get('types/{type}', 'ItemTypeController@show')
+        ->name('api.types.view');
 
     Route::put('types/{type}', 'ItemTypeController@update')
         ->name('api.types.update');
@@ -26,8 +36,14 @@ Route::middleware('auth')->prefix('v1')->group(function () {
     Route::post('types/{type}/update-stock', 'ItemTypeController@updateStock')
         ->name('api.types.updateStock');
 
-    Route::get('instances', 'ItemInstanceController@jsonIndex')
+    Route::get('instances', 'ItemInstanceController@index')
         ->name('api.instances.index');
+
+    Route::post('instances', 'ItemInstanceController@store')
+        ->name('api.instances.create');
+
+    Route::get('instances/{instance}', 'ItemInstanceController@show')
+        ->name('api.instances.view');
 
     Route::put('instances/{instance}', 'ItemInstanceController@update')
         ->name('api.instances.update');
@@ -35,15 +51,30 @@ Route::middleware('auth')->prefix('v1')->group(function () {
     Route::get('locations', 'LocationController@jsonIndex')
         ->name('api.locations.index');
 
+    Route::post('locations', 'LocationController@store')
+        ->name('api.locations.create');
+
+    Route::get('locations/{location}', 'LocationController@show')
+        ->name('api.locations.view');
+
     Route::put('locations/{location}', 'LocationController@update')
         ->name('api.locations.update');
 
     Route::get('reservations', 'ReservationController@jsonIndex')
         ->name('api.reservations.index');
 
+    Route::post('reservations', 'ReservationController@store')
+        ->name('api.reservations.create');
+
+    Route::get('reservations/{reservation}', 'ReservationController@show')
+        ->name('api.reservations.index');
+
     Route::put('reservations/{reservation}', 'ReservationController@update')
         ->name('api.reservations.update');
 
-    Route::put('faults/{fault}/update', 'ItemFaultController@update')
+    Route::post('faults', 'ItemFaultController@store')
+        ->name('api.faults.create');
+
+    Route::put('faults/{fault}', 'ItemFaultController@update')
         ->name('api.faults.update');
 });

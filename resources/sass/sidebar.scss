@@ -9,10 +9,6 @@
     a {
         @apply no-underline py-2;
         display: contents;
-
-        &.router-link-active span {
-            @apply font-bold;
-        }
     }
 
     i {

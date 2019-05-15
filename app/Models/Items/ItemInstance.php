@@ -15,12 +15,7 @@ class ItemInstance extends Model implements Searchable
 
     protected $guarded = [];
     protected $relations = ['type', 'location', 'faults'];
-    protected $appends = ['identifier', 'viewUrl'];
-
-    public function getViewUrlAttribute()
-    {
-        return route('instances.view', $this);
-    }
+    protected $appends = ['identifier'];
 
     public function getIdentifierPrefixLetter(): string
     {

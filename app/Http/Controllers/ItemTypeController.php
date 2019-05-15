@@ -15,18 +15,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class ItemTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        $url = route('api.types.index');
-        return view('types.index', compact('url'));
-    }
-
-    public function jsonIndex(Request $request)
+    public function index(Request $request)
     {
         $query = QueryBuilder::for(ItemType::class)
             ->allowedFilters([
@@ -45,16 +34,6 @@ class ItemTypeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('types.new');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
@@ -70,17 +49,8 @@ class ItemTypeController extends Controller
 
         $type = ItemType::create($data);
 
-        if ($request->get('submit', 'normal') === 'another') {
-            session()->flash('status-color', 'green');
-            session()->flash('status', "Item type $type->identifier was created.");
-
-            $request->flashOnly('stock_type');
-
-            return redirect()
-                ->route('types.create');
-        }
-
-        return redirect()->route('types.view',  $type);
+        $type->loadMissing('stockBalances.location', 'instances.location');
+        return response($type);
     }
 
     /**
@@ -91,7 +61,8 @@ class ItemTypeController extends Controller
      */
     public function show(ItemType $type)
     {
-        return view('types.view', compact('type'));
+        $type->loadMissing('stockBalances.location', 'instances.location');
+        return response($type);
     }
 
     public function suggestLocations(ItemType $type)
@@ -114,15 +85,13 @@ class ItemTypeController extends Controller
 
         $amount = $request->get('amount');
 
-        $updatedStock = ItemStockBalance::updateOrCreate(
+        ItemStockBalance::updateOrCreate(
             ['type_id' => $type->id, 'location_id' => $location->id],
             ['amount' => $amount]
         );
 
-        $stock = ItemStockBalance::with('location')
-            ->find($updatedStock->id);
-
-        return response()->json($stock, 200);
+        $type->load('stockBalances.location', 'instances.location');
+        return response()->json($type, 200);
     }
 
     /**

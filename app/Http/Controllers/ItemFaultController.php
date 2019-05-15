@@ -10,25 +10,6 @@ use Illuminate\Validation\Rule;
 
 class ItemFaultController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('faults.new');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -54,18 +35,7 @@ class ItemFaultController extends Controller
         );
 
         $fault = ItemFault::create($attributes);
-
-        if ($request->get('submit', 'normal') === 'another') {
-            session()->flash('status-color', 'green');
-            session()->flash('status', "Item fault $fault->identifier was created.");
-
-            $request->flashOnly('item_id');
-
-            return redirect()
-                ->route('faults.create');
-        }
-
-        return redirect()->route('faults.view',  $fault);
+        return response($fault);
     }
 
     /**

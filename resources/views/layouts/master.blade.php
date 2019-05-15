@@ -29,6 +29,12 @@
         @endif
         {{ config('app.name') }}
     </title>
+
+    <script>
+        window.Rulla = {
+            apiBaseUrl: '{{ route('api.base') }}',
+        };
+    </script>
 </head>
 <body class="h-full font-sans bg-gray-200 text-gray-900">
 @yield('body')
