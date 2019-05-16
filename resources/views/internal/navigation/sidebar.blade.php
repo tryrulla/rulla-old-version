@@ -39,7 +39,7 @@
     @else
         <div class="p-4">
             <div class="navbar-grid">
-                <a href="{{ route('login') }}">
+                <a href="{{ route(env('LOGIN_PROVIDER', 'saml2') === 'saml2' ? 'saml_login' : 'login') }}">
                     <i class="fas fa-sign-in-alt"></i>
                     Log in
                 </a>

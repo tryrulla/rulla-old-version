@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Aacotroneo\Saml2\Events\Saml2LoginEvent;
+use App\Listeners\LoginListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -17,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        Saml2LoginEvent::class => [
+            LoginListener::class,
         ],
     ];
 

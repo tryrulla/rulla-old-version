@@ -13,7 +13,7 @@
         @auth
             [{{ Auth::user()->identifier }}] {{ Auth::user()->name }} ({{ Auth::user()->username }})
         @else
-            <a href="{{ route('login') }}">Log in</a>
+            <a href="{{ route(env('LOGIN_PROVIDER', 'saml2') === 'saml2' ? 'saml_login' : 'login') }}">Log in</a>
         @endauth
     </div>
 </div>
