@@ -11,12 +11,17 @@
 |
 */
 
-Route::prefix('auth')->group(function () {
-    Auth::routes([
-        'register' => false,
-        'reset' => false,
-    ]);
-});
+if (env('LOGIN_PROVIDER', 'saml2') === 'password') {
+    Route::prefix('auth')->group(function () {
+        Auth::routes([
+            'register' => false,
+            'reset' => false,
+        ]);
+    });
+} else {
+    Route::post('/auth/logout', 'Users\LogoutController')
+        ->name('logout');
+}
 
 Route::middleware('auth')->group(function () {
     Route::get('search', 'SearchController')

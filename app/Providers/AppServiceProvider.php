@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Aacotroneo\Saml2\Saml2ServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (env('LOGIN_PROVIDER', 'saml2') === 'saml2') {
+            $this->app->register(Saml2ServiceProvider::class);
+        }
     }
 
     /**
