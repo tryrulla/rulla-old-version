@@ -34,8 +34,12 @@
           <th>
             Identifier
           </th>
-          <th class="w-full">
+          <th class="w-1/2">
             Name
+          </th>
+
+          <th class="w-1/2">
+            Parent
           </th>
         </tr>
         <tr
@@ -51,6 +55,19 @@
           </td>
           <td>
             {{ row.name }}
+          </td>
+
+          <td>
+            <router-link
+              v-if="row.parent"
+              :to="{ name: 'locations.view', params: { location: row.parent.id } }"
+            >
+              [{{ row.parent.identifier }}] {{ row.parent.name }}
+            </router-link>
+
+            <span class="text-gray-700" v-else>
+              &ndash;
+            </span>
           </td>
         </tr>
       </table>

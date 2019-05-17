@@ -10,17 +10,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class LocationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        $url = route('api.locations.index');
-        return view('locations.index', compact('url'));
-    }
-
     public function jsonIndex(Request $request)
     {
         $query = QueryBuilder::for(Location::class)
@@ -28,21 +17,11 @@ class LocationController extends Controller
                 Filter::exact('id'),
                 'name',
             ])
-            ->with('stock');
+            ->with('parent', 'children');
 
         return $request->has('all')
             ? $query->get()
             : $query->paginate(25);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('locations.new');
     }
 
     /**
@@ -55,10 +34,11 @@ class LocationController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|min:2',
+            'parent_id' => 'nullable|exists:locations,id',
         ]);
 
         $location = Location::create($data);
-        $location->loadMissing('stock.item', 'instances');
+        $location->loadMissing('stock.item', 'instances',  'parents', 'childrenTree');
         return response($location);
     }
 
@@ -70,7 +50,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        $location->loadMissing('stock.item', 'instances');
+        $location->loadMissing('stock.item', 'instances', 'parents', 'childrenTree');
         return response($location);
     }
 
@@ -85,9 +65,10 @@ class LocationController extends Controller
     {
         $location->update($request->validate([
             'name' => 'nullable|min:2',
+            'parent_id' => 'nullable|exists:locations,id',
         ]));
 
-        $location->loadMissing('stock.item', 'instances');
+        $location->load('stock.item', 'instances',  'parents', 'childrenTree');
         return response($location);
 
     }
