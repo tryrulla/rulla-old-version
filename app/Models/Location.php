@@ -32,12 +32,32 @@ class Location extends Model implements Searchable
         return $this->hasMany(ItemInstance::class, 'location_id', 'id');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(Location::class, 'parent_id', 'id');
+    }
+
+    public function parents()
+    {
+        return $this->parent()->with('parents');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Location::class, 'parent_id', 'id');
+    }
+
+    public function childrenTree()
+    {
+        return $this->children()->with('childrenTree');
+    }
+
     public function getSearchResult(): SearchResult
     {
         return new SearchResult(
             $this,
             $this->identifier . (strlen($this->name) > 0 ? ': ' . $this->name : ''),
-            $this->view_url
+            url('/locations/' . $this->id)
         );
     }
 }

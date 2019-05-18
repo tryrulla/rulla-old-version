@@ -4,11 +4,20 @@
       v-if="selected"
       class="group"
     >
+      <router-link
+        v-if="link && typeof link === 'object'"
+        :to="link"
+        @dblclick="openEditor"
+      >
+        {{ label(selected) }}
+      </router-link>
+
       <a
-        v-if="link"
+        v-else-if="link"
         :href="link"
         @dblclick="openEditor"
       >{{ label(selected) }}</a>
+
       <span
         v-else
         @dblclick="openEditor"
@@ -126,7 +135,7 @@ export default {
     return {
       editing: false,
       loaded: false,
-      allowedValues: this.options,
+      allowedValues: this.options || [],
       value: this.initialValue,
     };
   },

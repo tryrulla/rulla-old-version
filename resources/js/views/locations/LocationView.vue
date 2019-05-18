@@ -68,9 +68,33 @@
           </table>
         </div>
 
-        <div class="md:w-1/2" />
+        <div class="md:w-1/2">
+          <table class="table columned">
+            <tr>
+              <th class="w-1/4">
+                Parent
+              </th>
+              <td>
+                <editable-select
+                  id="parent_id"
+                  name="Parent"
+                  :save-value="edit"
+                  :initial-value="location.parent_id"
+                  :data-url="parentUrl"
+                  :label="item => `[${item.identifier}] ${item.name}`"
+                  :get-link="item => ({ name: 'locations.view', params: { location: item.id } })"
+                  :get-value="item => item.id"
+                />
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </details>
+
+    <location-child-tree
+      :data="location"
+    />
 
     <location-item-list
       :data="location"
@@ -79,21 +103,36 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import EditableTextField from '../../components/editing/EditableTextField.vue';
 import LocationItemList from '../../components/location/LocationItemList.vue';
+import EditableSelect from '../../components/editing/EditableSelect.vue';
+import LocationChildTree from '../../components/location/child-tree/LocationChildTree.vue';
 
 export default {
-  components: { LocationItemList, EditableTextField },
+  components: {
+    LocationChildTree, EditableSelect, LocationItemList, EditableTextField,
+  },
   computed: {
     id() {
       return parseInt(this.$route.params.location || '1', 10);
     },
+    ...mapGetters([
+      'apiBaseUrl',
+    ]),
     ...mapState({
       error: ({ location }) => location.error,
       loaded: ({ location }) => location.loaded,
       location: ({ location }) => location.location,
     }),
+    parentUrl() {
+      return `${this.apiBaseUrl}/locations?all=true`;
+    },
+  },
+  watch: {
+    $route() {
+      this.load({ id: this.id });
+    },
   },
   mounted() {
     this.load({ id: this.id });
