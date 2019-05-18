@@ -52,49 +52,49 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import axios from '../../axios';
-  import { getValidationErrors } from '../../utilities';
+import { mapGetters } from 'vuex';
+import axios from '../../axios';
+import { getValidationErrors } from '../../utilities';
 
-  export default {
-    data() {
-      return {
-        name: '',
+export default {
+  data() {
+    return {
+      name: '',
+    };
+  },
+  computed: {
+    ...mapGetters(['apiBaseUrl']),
+  },
+  methods: {
+    submit(createAnother) {
+      const params = {
+        name: this.name,
       };
-    },
-    computed: {
-      ...mapGetters(['apiBaseUrl']),
-    },
-    methods: {
-      submit(createAnother) {
-        const params = {
-          name: this.name,
-        };
 
-        axios.post(`${this.apiBaseUrl}/locations`, params)
-          .then(({ data }) => {
-            if (createAnother) {
-              this.name = null;
-            } else {
-              this.$router.push({
-                name: 'locations.view',
-                params: {
-                  location: data.id,
-                },
-              });
-            }
-          })
-          .catch((error) => {
-            const validationErrors = getValidationErrors(error.response);
-            if (validationErrors) {
-              alert(JSON.stringify(validationErrors));
-            } else {
-              alert(error.message);
-            }
+      axios.post(`${this.apiBaseUrl}/locations`, params)
+        .then(({ data }) => {
+          if (createAnother) {
+            this.name = null;
+          } else {
+            this.$router.push({
+              name: 'locations.view',
+              params: {
+                location: data.id,
+              },
+            });
+          }
+        })
+        .catch((error) => {
+          const validationErrors = getValidationErrors(error.response);
+          if (validationErrors) {
+            alert(JSON.stringify(validationErrors));
+          } else {
+            alert(error.message);
+          }
 
-            console.error(error);
-          });
-      },
+          console.error(error);
+        });
     },
-  };
+  },
+};
 </script>

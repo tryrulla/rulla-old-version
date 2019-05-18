@@ -27,7 +27,7 @@
         <td>
           <router-link
             v-if="row.type"
-            :to="{ name: 'types.view', params: { type: row.item.id } }"
+            :to="{ name: 'types.view', params: { type: row.type.id } }"
           >
             [{{ row.type.identifier }}] {{ row.type.name }}
           </router-link>

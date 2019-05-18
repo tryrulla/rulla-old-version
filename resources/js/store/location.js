@@ -1,5 +1,6 @@
 /* eslint no-param-reassign: 0 */
 import axios from '../axios';
+import { getValidationErrors } from '../utilities';
 
 export default {
   namespaced: true,
@@ -29,7 +30,14 @@ export default {
       state.loaded = false;
     },
     savingFailed(state, error) {
-      alert(error);
+      const validationErrors = getValidationErrors(error.response);
+      if (validationErrors) {
+        alert(JSON.stringify(validationErrors));
+      } else {
+        alert(error.message);
+      }
+
+      console.error(error);
     },
   },
   actions: {
