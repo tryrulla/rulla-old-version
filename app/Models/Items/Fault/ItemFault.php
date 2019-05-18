@@ -38,7 +38,7 @@ class ItemFault extends Model implements Searchable
         return new SearchResult(
             $this,
             $this->identifier . ': ' . $this->name,
-            $this->view_url
+            url('/instances/' . $this->item->id . '/fault/' . $this->id)
         );
     }
 

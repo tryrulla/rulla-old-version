@@ -19,7 +19,7 @@
 
                 @foreach($modelSearchResults as $result)
                     <ul class="list-disc pl-4">
-                        <li><a href="{{ $result->url }}">{{ $result->title }}</a></li>
+                        <li><a href="{{ $result->url }}" class="hover:underline">{{ $result->title }}</a></li>
                     </ul>
                 @endforeach
             @endforeach

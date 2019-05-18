@@ -42,7 +42,7 @@ class ItemInstance extends Model implements Searchable
         return new SearchResult(
             $this,
             $this->identifier . (strlen($this->label) > 0 ? ': ' . $this->label : ''),
-            $this->view_url
+            url('/instances/' . $this->id)
         );
     }
 }
