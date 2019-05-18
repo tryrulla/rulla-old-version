@@ -65,7 +65,25 @@ class LocationController extends Controller
     {
         $location->update($request->validate([
             'name' => 'nullable|min:2',
-            'parent_id' => 'nullable|exists:locations,id',
+            'parent_id' => [
+                'bail',
+                'nullable',
+                'exists:locations,id',
+                function ($attribute, $value, $fail) use ($location) {
+                    $another = Location::with('parents')
+                        ->findOrFail($value);
+
+                    $parent = $another->parents;
+                    while ($parent) {
+                        if ($parent->id === $location->id) {
+                            $fail('Location tree may not generate a loop.');
+                            return;
+                        }
+
+                        $parent = $parent->parents;
+                    }
+                }
+            ],
         ]));
 
         $location->load('stock.item', 'instances',  'parents', 'childrenTree');

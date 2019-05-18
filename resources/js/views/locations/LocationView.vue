@@ -84,7 +84,7 @@
                   :label="item => `[${item.identifier}] ${item.name}`"
                   :get-link="item => ({ name: 'locations.view', params: { location: item.id } })"
                   :get-value="item => item.id"
-                ></editable-select>
+                />
               </td>
             </tr>
           </table>
@@ -102,7 +102,7 @@
 import { mapActions, mapGetters, mapState } from 'vuex';
 import EditableTextField from '../../components/editing/EditableTextField.vue';
 import LocationItemList from '../../components/location/LocationItemList.vue';
-import EditableSelect from "../../components/editing/EditableSelect";
+import EditableSelect from '../../components/editing/EditableSelect.vue';
 
 export default {
   components: { EditableSelect, LocationItemList, EditableTextField },
@@ -119,7 +119,12 @@ export default {
       location: ({ location }) => location.location,
     }),
     parentUrl() {
-      return this.apiBaseUrl + '/locations?all=true'
+      return `${this.apiBaseUrl}/locations?all=true`;
+    },
+  },
+  watch: {
+    $route() {
+      this.load({ id: this.id });
     },
   },
   mounted() {
@@ -134,10 +139,5 @@ export default {
       edit: 'location/edit',
     }),
   },
-  watch: {
-    '$route'() {
-      this.load({ id: this.id });
-    }
-  }
 };
 </script>

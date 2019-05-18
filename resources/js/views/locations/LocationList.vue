@@ -65,7 +65,10 @@
               [{{ row.parent.identifier }}] {{ row.parent.name }}
             </router-link>
 
-            <span class="text-gray-700" v-else>
+            <span
+              v-else
+              class="text-gray-700"
+            >
               &ndash;
             </span>
           </td>

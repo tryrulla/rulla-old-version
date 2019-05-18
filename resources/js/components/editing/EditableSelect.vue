@@ -8,7 +8,9 @@
         v-if="link && typeof link === 'object'"
         :to="link"
         @dblclick="openEditor"
-      >{{ label(selected) }}</router-link>
+      >
+        {{ label(selected) }}
+      </router-link>
 
       <a
         v-else-if="link"
@@ -133,7 +135,7 @@ export default {
     return {
       editing: false,
       loaded: false,
-      allowedValues: this.options || [],
+      allowedValues: this.options || [],
       value: this.initialValue,
     };
   },
