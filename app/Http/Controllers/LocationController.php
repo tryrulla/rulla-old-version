@@ -38,7 +38,7 @@ class LocationController extends Controller
         ]);
 
         $location = Location::create($data);
-        $location->loadMissing('stock.item', 'instances',  'parents', 'childrenTree');
+        $location->loadMissing('stock.item', 'instances.type',  'parents', 'childrenTree');
         return response($location);
     }
 
@@ -50,7 +50,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        $location->loadMissing('stock.item', 'instances', 'parents', 'childrenTree');
+        $location->loadMissing('stock.item', 'instances.type', 'parents', 'childrenTree');
         return response($location);
     }
 
@@ -86,7 +86,7 @@ class LocationController extends Controller
             ],
         ]));
 
-        $location->load('stock.item', 'instances',  'parents', 'childrenTree');
+        $location->load('stock.item', 'instances.type',  'parents', 'childrenTree');
         return response($location);
 
     }

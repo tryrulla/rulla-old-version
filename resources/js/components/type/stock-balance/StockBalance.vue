@@ -2,13 +2,13 @@
   <div>
     <table class="table">
       <tr class="header">
-        <th class="w-2/6">
+        <th class="w-4/6">
           Location
         </th>
         <th class="w-1/6">
           Balance
         </th>
-        <th class="w-2/6">
+        <th class="w-1/6">
           Last updated
         </th>
         <td class="text-right text-xs">
@@ -24,9 +24,9 @@
         :key="row.id"
       >
         <td>
-          <a :href="row.location.viewUrl">
+          <router-link :to="{ name: 'locations.view', params: { location: row.location.id } }">
             [{{ row.location.identifier }}] {{ row.location.name }}
-          </a>
+          </router-link>
         </td>
 
         <td>

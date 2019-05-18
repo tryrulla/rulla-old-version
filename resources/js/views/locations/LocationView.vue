@@ -92,6 +92,10 @@
       </div>
     </details>
 
+    <location-child-tree
+      :data="location"
+    />
+
     <location-item-list
       :data="location"
     />
@@ -103,9 +107,12 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 import EditableTextField from '../../components/editing/EditableTextField.vue';
 import LocationItemList from '../../components/location/LocationItemList.vue';
 import EditableSelect from '../../components/editing/EditableSelect.vue';
+import LocationChildTree from '../../components/location/child-tree/LocationChildTree.vue';
 
 export default {
-  components: { EditableSelect, LocationItemList, EditableTextField },
+  components: {
+    LocationChildTree, EditableSelect, LocationItemList, EditableTextField,
+  },
   computed: {
     id() {
       return parseInt(this.$route.params.location || '1', 10);
