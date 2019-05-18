@@ -58,7 +58,7 @@ class ItemType extends Model implements Searchable
         return new SearchResult(
             $this,
             $this->identifier . (strlen($this->name) > 0 ? ': ' . $this->name : ''),
-            $this->view_url
+            url('/types/' . $this->id)
         );
     }
 }

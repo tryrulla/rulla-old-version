@@ -32,50 +32,32 @@ class SearchController extends Controller
             $key = strtoupper($matches[1]);
             $id = intval($matches[2], 10);
 
-            switch ($key) {
-                case 'I':
-                    $item = ItemInstance::find($id);
+            $prefix = route('home');
 
-                    if ($item) {
-                        return redirect()
-                            ->route('instances.view', $item);
-                    }
+            $component = null;
 
-                    break;
-                case 'T':
-                    $type = ItemType::find($id);
+            if ($key === 'F') {
+                $fault = ItemFault::find($id);
 
-                    if ($type) {
-                        return redirect()
-                            ->route('types.view', $type);
-                    }
+                if ($fault) {
+                    $component = 'instances/' . $fault->item->id . '/fault';
+                }
+            } else {
+                $keys = [
+                    'I' => 'instances',
+                    'T' => 'types',
+                    'L' => 'locations',
+                    'R' => 'reservations',
+                ];
 
-                    break;
-                case 'L':
-                    $location = Location::find($id);
+                if (array_key_exists($key, $keys)) {
+                    $component = $keys[$key];
+                }
+            }
 
-                    if ($location) {
-                        return redirect()
-                            ->route('locations.view', $location);
-                    }
-
-                    break;
-                case 'R':
-                    $reservation = Reservation::find($id);
-
-                    if ($reservation) {
-                        return redirect()
-                            ->route('reservations.view', $reservation);
-                    }
-
-                    break;
-                case 'F':
-                    $fault = ItemFault::find($id);
-
-                    if ($fault) {
-                        return redirect()
-                            ->route('faults.view', $fault);
-                    }
+            if ($component) {
+                $url = $prefix . '/' . $component . '/' . $id;
+                return redirect($url);
             }
         }
 
