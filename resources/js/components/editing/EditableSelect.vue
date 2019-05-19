@@ -29,7 +29,7 @@
       </span>
 
       <button
-        class="text-gray-600 text-xs hidden group-hover:inline"
+        class="text-gray-600 text-xs inline md:hidden group-hover:inline"
         @click="openEditor"
       >
         <i class="fas fa-pen" />
