@@ -14,8 +14,10 @@ class ItemInstanceController extends Controller
 {
     public function index(Request $request)
     {
-        $query = QueryBuilder::for(ItemInstance::class)
-            ->allowedFilters(Filter::exact('id'), 'label', Filter::exact('location_id'), Filter::exact('type_id'))
+        //$query = QueryBuilder::for(ItemInstance::class)
+            //->allowedFilters(Filter::exact('id'), 'label', Filter::exact('location_id'), Filter::exact('type_id'))
+        $query = ItemInstance
+            ::usingSearchString($request->get('search', ''))
             ->with('type', 'location', 'faults');
 
         return $request->has('all')

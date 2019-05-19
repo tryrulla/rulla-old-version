@@ -6,16 +6,24 @@ use App\Models\Items\Fault\ItemFault;
 use App\Models\Location;
 use App\Models\Traits\HasFormattedIdentifier;
 use Illuminate\Database\Eloquent\Model;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 
 class ItemInstance extends Model implements Searchable
 {
-    use HasFormattedIdentifier;
+    use HasFormattedIdentifier, SearchString;
 
     protected $guarded = [];
     protected $relations = ['type', 'location', 'faults'];
     protected $appends = ['identifier'];
+
+    protected $searchStringColumns = [
+        'id',
+        'label',
+        'type_id' => 'type',
+        'location_id' => 'location',
+    ];
 
     public function getIdentifierPrefixLetter(): string
     {

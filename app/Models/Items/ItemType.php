@@ -46,13 +46,6 @@ class ItemType extends Model implements Searchable
             ->with('location');
     }
 
-    public function scopeHasStockIn($query, $locationId)
-    {
-        return $query->whereHas('stockBalances', function ($stockQuery) use ($locationId) {
-            return $stockQuery->where('location_id', '=', $locationId);
-        });
-    }
-
     public function getSearchResult(): SearchResult
     {
         return new SearchResult(
