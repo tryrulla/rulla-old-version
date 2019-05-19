@@ -12,11 +12,8 @@ class LocationController extends Controller
 {
     public function jsonIndex(Request $request)
     {
-        $query = QueryBuilder::for(Location::class)
-            ->allowedFilters([
-                Filter::exact('id'),
-                'name',
-            ])
+        $query = Location
+            ::usingSearchString($request->get('search', ''))
             ->with('parent', 'children');
 
         return $request->has('all')

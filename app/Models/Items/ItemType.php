@@ -19,8 +19,8 @@ class ItemType extends Model implements Searchable
 
     protected $searchStringColumns = [
         'id',
-        'manufacturer',
-        'model',
+        'manufacturer' => [ 'searchable' => true ],
+        'model' => [ 'searchable' => true ],
         'stock_type',
     ];
 

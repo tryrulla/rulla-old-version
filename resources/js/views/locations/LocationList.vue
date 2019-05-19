@@ -21,6 +21,26 @@
       </router-link>
     </div>
 
+    <div class="mb-2">
+      <label for="search" class="text-xs text-gray-700 font-bold uppercase">
+        Search
+
+        <a href="https://github.com/lorisleiva/laravel-search-string#the-search-string-syntax" target="_blank">
+          <i
+            v-tooltip="'Click for help'"
+            class="fas fa-info-circle text-gray-600 text-xs"
+          />
+        </a>
+      </label>
+
+      <input
+        v-model="search"
+        id="search"
+        placeholder="Search"
+        class="input-text"
+      >
+    </div>
+
     <div v-if="data">
       <div v-if="data.data.length === 0">
         No results.
@@ -108,12 +128,15 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+  import { mapState, mapActions } from 'vuex';
+  import { debounce } from 'lodash';
 
 export default {
   data() {
     return {
+      search: this.$route.query.search || '',
       page: parseInt(this.$route.query.page || '1', 10),
+      debouncedSearch: debounce(this.runSearch, 500),
     };
   },
   computed: {
@@ -125,10 +148,18 @@ export default {
   },
   watch: {
     page() {
-      this.load({ page: this.page });
+      this.runSearch();
       this.$router.push({
         query: {
           page: this.page.toString(),
+        },
+      });
+    },
+    search() {
+      this.debouncedSearch();
+      this.$router.push({
+        query: {
+          search: this.search.length > 0 ? this.search : undefined,
         },
       });
     },
@@ -143,6 +174,9 @@ export default {
     capitalize(s) {
       if (typeof s !== 'string') return '';
       return s.charAt(0).toUpperCase() + s.slice(1);
+    },
+    runSearch() {
+      this.load({ page: this.page, search: this.search });
     },
   },
 };

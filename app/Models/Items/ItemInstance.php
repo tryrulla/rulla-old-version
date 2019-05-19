@@ -20,7 +20,7 @@ class ItemInstance extends Model implements Searchable
 
     protected $searchStringColumns = [
         'id',
-        'label',
+        'label' => [ 'searchable' => true ],
         'type_id' => 'type',
         'location_id' => 'location',
     ];

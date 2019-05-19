@@ -6,16 +6,27 @@ use App\Models\Items\ItemInstance;
 use App\Models\Items\ItemStockBalance;
 use App\Models\Traits\HasFormattedIdentifier;
 use Illuminate\Database\Eloquent\Model;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 
 class Location extends Model implements Searchable
 {
-    use HasFormattedIdentifier;
+    use HasFormattedIdentifier, SearchString;
 
     protected $guarded = [];
     protected $relations = ['stock', 'instances'];
     protected $appends = ['identifier'];
+
+    protected $searchStringColumns = [
+        'id',
+
+        'name' => [
+            'searchable' => true,
+        ],
+
+        'parent_id' => 'parent',
+    ];
 
     public function getIdentifierPrefixLetter(): string
     {
