@@ -23,8 +23,6 @@ class ItemTypeController extends Controller
                 'manufacturer',
                 'model',
                 'stock_type',
-
-                Filter::scope('has_stock_in'),
             ])
             ->with('stockBalances');
 
