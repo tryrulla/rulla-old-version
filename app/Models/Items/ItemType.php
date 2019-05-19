@@ -4,17 +4,25 @@ namespace App\Models\Items;
 
 use App\Models\Traits\HasFormattedIdentifier;
 use Illuminate\Database\Eloquent\Model;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 
 class ItemType extends Model implements Searchable
 {
-    use HasFormattedIdentifier;
+    use HasFormattedIdentifier, SearchString;
 
     protected $guarded = [];
     protected $relations = ['stockBalances'];
     protected $appends = ['identifier', 'name'];
+
+    protected $searchStringColumns = [
+        'id',
+        'manufacturer',
+        'model',
+        'stock_type',
+    ];
 
     public function getNameAttribute()
     {

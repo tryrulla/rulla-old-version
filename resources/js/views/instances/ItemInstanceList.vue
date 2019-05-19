@@ -177,7 +177,7 @@ export default {
           search: this.search.length > 0 ? this.search : undefined,
         },
       });
-    }
+    },
   },
   mounted() {
     this.load({ page: this.page });
@@ -188,7 +188,7 @@ export default {
     }),
     runSearch() {
       this.load({ page: this.page, search: this.search });
-    }
+    },
   },
 };
 </script>

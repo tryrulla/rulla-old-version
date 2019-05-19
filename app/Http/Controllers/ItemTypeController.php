@@ -17,13 +17,8 @@ class ItemTypeController extends Controller
 {
     public function index(Request $request)
     {
-        $query = QueryBuilder::for(ItemType::class)
-            ->allowedFilters([
-                Filter::exact('id'),
-                'manufacturer',
-                'model',
-                'stock_type',
-            ])
+        $query = ItemType
+            ::usingSearchString($request->get('search', ''))
             ->with('stockBalances');
 
         return $request->has('all')

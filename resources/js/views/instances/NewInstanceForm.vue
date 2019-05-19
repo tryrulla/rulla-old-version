@@ -132,7 +132,7 @@ export default {
     ...mapGetters(['apiBaseUrl']),
   },
   mounted() {
-    axios.get(`${this.apiBaseUrl}/types?all=true`)
+    axios.get(`${this.apiBaseUrl}/types`, { params: { all: '1', search: 'stock_type=instance' } })
       .then(({ data }) => {
         this.typesLoaded = true;
         this.typeList = data;

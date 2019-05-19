@@ -26,9 +26,9 @@ export default {
     },
   },
   actions: {
-    load({ commit, rootGetters }, { page = 1 }) {
-      const url = `${rootGetters.apiBaseUrl}/types?page=${page}`;
-      axios.get(url)
+    load({ commit, rootGetters }, { page = 1, search = '' }) {
+      const url = `${rootGetters.apiBaseUrl}/types`;
+      axios.get(url, { params: { page, search } })
         .then(({ data }) => commit('loaded', data))
         .catch(error => commit('loadingFailed', error));
     },
