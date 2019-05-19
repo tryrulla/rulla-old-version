@@ -24,6 +24,15 @@
       </h1>
     </div>
 
+    <div class="mb-4">
+      <router-link
+        :to="{ name: 'instances.new', query: {type: type.id} }"
+        class="button-gray"
+      >
+        Create instance
+      </router-link>
+    </div>
+
     <div>
       <details open>
         <summary>Basic details</summary>

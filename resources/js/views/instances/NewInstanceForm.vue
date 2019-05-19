@@ -116,8 +116,8 @@ export default {
   data() {
     return {
       label: '',
-      type: null,
-      location: null,
+      type: parseInt(this.$route.query.type || '', 10) || null,
+      location: parseInt(this.$route.query.location || '', 10) || null,
 
       typeList: [],
       typesLoaded: false,
