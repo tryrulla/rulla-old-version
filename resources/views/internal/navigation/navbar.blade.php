@@ -4,12 +4,12 @@
             {{ config('app.name') }}
         </span>
 
-        <form action="{{ route('search') }}" method="get" class="inline-block mx-4">
-            <input class="input-text" name="query" placeholder="Search Anything">
+        <form action="{{ route('search') }}" method="get" class="block md:inline-block md:mx-4">
+            <input class="input-text" name="query" placeholder="Search Anything (beta)">
         </form>
     </div>
 
-    <div>
+    <div class="text-right">
         @auth
             [{{ Auth::user()->identifier }}] {{ Auth::user()->name }} ({{ Auth::user()->username }})
         @else
