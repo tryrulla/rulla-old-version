@@ -27,7 +27,7 @@
       :open="editing"
       @close="editing = false"
     >
-      <div class="bg-white shadow rounded-lg w-screen-1/2">
+      <div class="bg-white shadow rounded-lg w-screen-9/10 md:w-screen-1/2">
         <div class="bg-gray-400 p-4 rounded-t flex justify-between">
           <h1 class="text-xl text-black font-bold">
             Change {{ name }}
