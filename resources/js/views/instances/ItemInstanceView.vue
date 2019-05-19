@@ -89,14 +89,32 @@
                 Type
               </th>
               <td>
-                {{ instance.type ? instance.type.name : '-' }}
+                <editable-select
+                  id="type_id"
+                  name="Type"
+                  :save-value="edit"
+                  :initial-value="instance.type_id"
+                  :data-url="`${apiBaseUrl}/types?all=true`"
+                  :label="item => `[${item.identifier}] ${item.name}`"
+                  :get-link="item => ({ name: 'types.view', params: { type: item.id } })"
+                  :get-value="item => item.id"
+                />
               </td>
             </tr>
 
             <tr>
               <th>Location</th>
               <td>
-                {{ instance.location ? instance.location.name : '-' }}
+                <editable-select
+                  id="location_id"
+                  name="Location"
+                  :save-value="edit"
+                  :initial-value="instance.location_id"
+                  :data-url="`${apiBaseUrl}/locations?all=true`"
+                  :label="item => `[${item.identifier}] ${item.name}`"
+                  :get-link="item => ({ name: 'locations.view', params: { location: item.id } })"
+                  :get-value="item => item.id"
+                />
               </td>
             </tr>
           </table>
@@ -116,16 +134,18 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import ItemFaultListing from '../../components/faults/ItemFaultListing.vue';
 import EditableTextField from '../../components/editing/EditableTextField.vue';
+import EditableSelect from '../../components/editing/EditableSelect.vue';
 
 export default {
-  components: { EditableTextField, ItemFaultListing },
+  components: { EditableTextField, EditableSelect, ItemFaultListing },
   computed: {
     id() {
       return parseInt(this.$route.params.instance || '1', 10);
     },
+    ...mapGetters(['apiBaseUrl']),
     ...mapState({
       error: ({ instance }) => instance.error,
       loaded: ({ instance }) => instance.loaded,

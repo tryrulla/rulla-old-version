@@ -122,7 +122,7 @@
       </details>
 
       <details
-        v-else
+        v-else-if="type.instances.length > 0"
         open
       >
         <summary>Instances</summary>
