@@ -1,10 +1,4 @@
-<div class="flex-none w-full md:max-w-xs text-black bg-gray-300">
-    <div class="px-4 h-16 bg-gray-400 text-xl font-mono flex items-center">
-        <a href="{{ route('home') }}">
-            Rulla
-        </a>
-    </div>
-
+<sidebar>
     @auth
         <div class="p-4">
             <div class="navbar-grid">
@@ -46,4 +40,4 @@
             </div>
         </div>
     @endauth
-</div>
+</sidebar>

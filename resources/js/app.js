@@ -10,6 +10,8 @@ import vSelect from 'vue-select';
 import router from './router';
 import store from './store';
 
+import Sidebar from './components/utils/Sidebar.vue';
+
 window.Vue = Vue;
 
 Vue.directive('autofocus-select', {
@@ -24,6 +26,8 @@ Vue.directive('autofocus', autofocus);
 Vue.component('v-select', vSelect);
 Vue.use(PortalVue);
 Vue.use(VTooltip);
+
+Vue.component('sidebar', Sidebar);
 
 /**
  * The following block of code may be used to automatically register your
