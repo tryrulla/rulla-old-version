@@ -18,9 +18,16 @@ if (env('LOGIN_PROVIDER', 'saml2') === 'password') {
             'reset' => false,
         ]);
     });
-} else {
+}
+
+if (!Route::has('logout')) {
     Route::post('/auth/logout', 'Users\LogoutController')
         ->name('logout');
+}
+
+if (!Route::has('login')) {
+    Route::get('/login', function () {})
+        ->name('login');
 }
 
 Route::middleware('auth')->group(function () {
@@ -32,4 +39,5 @@ Route::get('{any?}', function ($any = null) {
     return view('home');
 })
     ->where('any', '.*')
-    ->name('home');
+    ->name('home')
+    ->middleware(env('LOGIN_PROVIDER', 'saml2') === 'env' ? ['auth'] : []);
