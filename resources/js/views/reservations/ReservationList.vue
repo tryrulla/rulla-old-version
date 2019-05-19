@@ -73,7 +73,10 @@
         </tr>
       </table>
 
-      <table class="table">
+      <table
+        v-if="data.data.length > 0"
+        class="table"
+      >
         <tr class="header">
           <th class="w-1/3">
             <button
