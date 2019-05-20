@@ -14,6 +14,7 @@
       </h1>
 
       <router-link
+        v-if="false"
         :to="{ name: 'users.new' }"
         class="button-gray"
       >
