@@ -26,8 +26,13 @@ if (!Route::has('logout')) {
 }
 
 if (!Route::has('login')) {
-    Route::get('/login', function () {})
-        ->name('login');
+    if (Route::has('saml_login')) {
+        Route::put('/saml2/login', 'Users\LogoutController')
+            ->name('login');
+    } else {
+        Route::view('/login', 'welcome')
+            ->name('login');
+    }
 }
 
 Route::middleware('auth')->group(function () {

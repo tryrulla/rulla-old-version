@@ -16,13 +16,19 @@ class Authenticate extends Middleware
             $this->authenticate($request, $guards);
         } catch (AuthenticationException $e) {
             $auth = false;
-            if (env('LOGIN_PROVIDER', 'saml2') === 'env' && getenv('upn')) {
-                $user = User::firstOrNew([
-                    'email' => getenv('upn'),
+            if (env('LOGIN_PROVIDER', 'saml2') === 'env'
+                && getenv('upn')) {
+                $email = getenv('upn');
+                $username = strtolower(explode('@', $email)[0]);
+                $realname = ucwords(str_replace('.', ' ', $username));
+
+                $user = User::firstOrCreate([
+                    'email' => $email,
                 ], [
-                    'email' => getenv('upn'),
-                    'username' => explode('@', getenv('upn'))[0],
-                    'name' => explode('@', getenv('upn'))[0],
+                    'email' => $email,
+                    'username' => $username,
+                    'name' => $realname,
+                    'password' => '',
                 ]);
 
                 Auth::login($user);
