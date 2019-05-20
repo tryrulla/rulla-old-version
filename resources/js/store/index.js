@@ -9,6 +9,8 @@ import reservation from './reservation';
 import reservationList from './reservationList';
 import instance from './instance';
 import instanceList from './instanceList';
+import userList from './userList';
+import user from './user';
 
 Vue.use(Vuex);
 
@@ -27,5 +29,7 @@ export default new Vuex.Store({
     reservationList,
     instance,
     instanceList,
+    userList,
+    user,
   },
 });

@@ -77,4 +77,13 @@ Route::middleware('auth')->prefix('v1')->group(function () {
 
     Route::put('faults/{fault}', 'ItemFaultController@update')
         ->name('api.faults.update');
+
+    Route::get('users', 'Users\UserController@index')
+        ->name('api.users.index');
+
+    Route::get('users/{user}', 'Users\UserController@show')
+        ->name('api.users.view');
+
+    Route::put('users/{user}', 'Users\UserController@update')
+        ->name('api.users.update');
 });
