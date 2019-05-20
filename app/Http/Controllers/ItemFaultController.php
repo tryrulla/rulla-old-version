@@ -46,7 +46,7 @@ class ItemFaultController extends Controller
      */
     public function show(ItemFault $fault)
     {
-        return view('faults.view', ['fault' => $fault]);
+        return response($fault);
     }
 
     /**

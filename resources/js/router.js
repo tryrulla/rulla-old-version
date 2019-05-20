@@ -16,6 +16,8 @@ import ReservationView from './views/reservations/ReservationView.vue';
 import ItemTypeListView from './views/types/ItemTypeList.vue';
 import ItemTypeView from './views/types/ItemTypeView.vue';
 import NewTypeFormView from './views/types/NewTypeForm.vue';
+import UserListView from './views/users/UserList.vue';
+import UserView from './views/users/UserView.vue';
 
 Vue.use(VueRouter);
 
@@ -37,6 +39,8 @@ const router = new VueRouter({
     { name: 'types.index', path: '/types', component: ItemTypeListView },
     { name: 'types.new', path: '/types/new', component: NewTypeFormView },
     { name: 'types.view', path: '/types/:type', component: ItemTypeView },
+    { name: 'users.index', path: '/users', component: UserListView },
+    { name: 'users.view', path: '/users/:user', component: UserView },
   ],
 });
 

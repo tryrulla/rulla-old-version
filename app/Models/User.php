@@ -6,11 +6,11 @@ use App\Models\Traits\HasFormattedIdentifier;
 use BeyondCode\Comments\Contracts\Commentator;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable implements Commentator
 {
-    use HasFormattedIdentifier;
-    use Notifiable;
+    use HasFormattedIdentifier, Notifiable, SearchString;
 
     protected $fillable = ['username', 'name', 'email', 'password'];
     protected $hidden = ['password', 'remember_token'];
@@ -18,6 +18,17 @@ class User extends Authenticatable implements Commentator
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $searchStringColumns = [
+        'id',
+
+        'name' => [
+            'searchable' => true,
+        ],
+
+        'username',
+        'email',
     ];
 
     public function getIdentifierPrefixLetter(): string

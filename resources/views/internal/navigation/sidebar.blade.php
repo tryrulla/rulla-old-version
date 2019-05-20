@@ -21,6 +21,11 @@
                     <i class="fas fa-clipboard-list"></i>
                     <span>Reservations</span>
                 </router-link>
+
+                <router-link :to="{ name: 'users.index' }">
+                    <i class="fas fa-user"></i>
+                    <span>Users</span>
+                </router-link>
             </div>
 
             @if(env('LOGIN_PROVIDER', 'saml2') !== 'env')
