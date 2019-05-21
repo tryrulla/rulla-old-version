@@ -80,7 +80,12 @@
                 Email
               </th>
               <td>
-                {{ user.email }}
+                <a
+                  :href="'mailto:' + user.email"
+                  class="text-blue-800 hover:underline"
+                >
+                  {{ user.email }}
+                </a>
               </td>
             </tr>
           </table>

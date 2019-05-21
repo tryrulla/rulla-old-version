@@ -90,7 +90,7 @@
           </td>
           <td>
             <a
-              :href="row.email"
+              :href="'mailto:' + row.email"
               class="text-blue-800 hover:underline"
             >
               {{ row.email }}
