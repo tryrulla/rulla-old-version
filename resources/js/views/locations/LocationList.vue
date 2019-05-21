@@ -171,7 +171,7 @@ export default {
     },
   },
   mounted() {
-    this.load({ page: this.page });
+    this.runSearch();
   },
   methods: {
     ...mapActions({

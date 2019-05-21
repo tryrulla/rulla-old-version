@@ -87,8 +87,7 @@
         </div>
 
         <div class="md:w-1/2">
-          <table class="table columned">
-          </table>
+          <table class="table columned" />
         </div>
       </div>
     </details>
@@ -98,12 +97,9 @@
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
 import EditableTextField from '../../components/editing/EditableTextField.vue';
-import EditableSelect from '../../components/editing/EditableSelect.vue';
 
 export default {
-  components: {
-    EditableSelect, EditableTextField,
-  },
+  components: { EditableTextField },
   computed: {
     id() {
       return parseInt(this.$route.params.user || '1', 10);

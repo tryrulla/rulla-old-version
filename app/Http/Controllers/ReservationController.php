@@ -19,23 +19,10 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class ReservationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        $url = route('api.reservations.index');
-        return view('reservations.index', compact('url'));
-    }
-
     public function jsonIndex(Request $request)
     {
-        $query = QueryBuilder::for(Reservation::class)
-            ->allowedFilters([
-                Filter::exact('id'),
-            ])
+        $query = Reservation
+            ::usingSearchString($request->get('search', ''))
             ->with('author');
 
         return $request->has('all')

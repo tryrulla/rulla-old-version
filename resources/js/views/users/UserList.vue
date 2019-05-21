@@ -89,8 +89,11 @@
             {{ row.name }}
           </td>
           <td>
-            <a :href="row.email" class="text-blue-800 hover:underline">
-              {{ row.email }}
+            <a
+              :href="row.email"
+              class="text-blue-800 hover:underline"
+            >
+              {{ row.email }}
             </a>
           </td>
         </tr>

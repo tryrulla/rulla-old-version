@@ -5,13 +5,16 @@
         Rulla
       </router-link>
 
-      <button class="md:hidden" @click="open = !open">
-        <i :class="open ? ['fas', 'fa-times'] : ['fas', 'fa-bars']"></i>
+      <button
+        class="md:hidden"
+        @click="open = !open"
+      >
+        <i :class="open ? ['fas', 'fa-times'] : ['fas', 'fa-bars']" />
       </button>
     </div>
 
     <div :class="open ? [] : ['hidden', 'md:block']">
-      <slot></slot>
+      <slot />
     </div>
   </div>
 </template>
@@ -22,6 +25,6 @@ export default {
     return {
       open: false,
     };
-  }
+  },
 };
 </script>

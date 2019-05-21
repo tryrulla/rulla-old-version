@@ -6,10 +6,11 @@ use App\Models\Traits\HasFormattedIdentifier;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Reservation extends Model
 {
-    use HasFormattedIdentifier;
+    use HasFormattedIdentifier, SearchString;
 
     protected $guarded = [];
     protected $relations = ['author', 'items'];
@@ -20,6 +21,23 @@ class Reservation extends Model
         'ends_at' => 'datetime',
         'started' => 'boolean',
         'cancelled' => 'boolean',
+    ];
+
+    protected $searchStringColumns = [
+        'id',
+        'starts_at',
+        'ends_at',
+
+        'started' => [
+            'boolean' => true,
+        ],
+
+        'approval_status',
+        'author_id' => 'author',
+
+        'cancelled' => [
+            'boolean' => true,
+        ],
     ];
 
     public function getApprovalStatusAttribute($value): ReservationApprovalStatus
