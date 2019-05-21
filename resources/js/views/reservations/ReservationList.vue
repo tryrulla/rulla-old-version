@@ -88,7 +88,9 @@
             <reservation-status :status="row.status" />
           </td>
           <td>
-            [{{ row.author.identifier }}] {{ row.author.name }} ({{ row.author.username }})
+            <router-link :to="{ name: 'users.view', params: { user: row.id } }" class="hover:underline">
+              [{{ row.author.identifier }}] {{ row.author.name }} ({{ row.author.username }})
+            </router-link>
           </td>
           <td>
             {{ formatDate(row.starts_at) }}
